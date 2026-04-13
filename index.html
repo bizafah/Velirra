@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velirra | Luxury Parfumerie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+
+        /* Gold Gradient Text */
+        .text-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5c2 50%, #d4af37 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .border-gold {
+            border-color: #d4af37;
+        }
+
+        .bg-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e5c2 50%, #d4af37 100%);
+        }
+
+        .text-gold-solid {
+            color: #d4af37;
+        }
+
+        /* Smooth Scroll Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Animations */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .animate-shimmer {
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .scale-in {
+            opacity: 0;
+            animation: scaleIn 1.2s ease-out forwards;
+        }
+
+        /* Delay classes */
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-500 {
+            animation-delay: 0.5s;
+        }
+
+        .delay-700 {
+            animation-delay: 0.7s;
+        }
+
+        /* Glass Morphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        /* Hover Effects */
+        .hover-lift {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Image Hover Zoom */
+        .img-zoom {
+            overflow: hidden;
+        }
+
+        .img-zoom img {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .img-zoom:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Navigation Link Underline Effect */
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, #d4af37, #f4e5c2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Parallax Container */
+        .parallax-bg {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a0a;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            letter-spacing: 0.5em;
+            color: #d4af37;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Product Card Shine Effect */
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Collections Section */
+        .featured {
+            padding: 8rem 2rem;
+            background: #0a0a0a;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-card {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            text-decoration: none;
+            color: white;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.8));
+            opacity: 0.6;
+            transition: opacity 0.4s ease;
+        }
+
+        .category-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .category-card:hover .product-overlay {
+            opacity: 0.8;
+        }
+
+        .product-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2.5rem;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .category-card:hover .product-info {
+            transform: translateY(0);
+        }
+
+        .product-category {
+            color: #d4af37;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+
+        .story-text {
+            color: #ccc;
+            opacity: 0;
+            transition: opacity 0.4s ease 0.1s;
+        }
+
+        .category-card:hover .story-text {
+            opacity: 1;
+        }
+
+        .shine:hover::before {
+            left: 100%;
+        }
+
+        /* Showcase Section */
+        .showcase-section {
+            position: relative;
+            background-color: #000;
+            padding: 60px 0;
+            min-height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .showcase-sticky {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .running-text-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .running-text {
+            display: inline-block;
+            font-size: 12rem;
+            font-weight: 900;
+            color: #d4af37;
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .showcase-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .showcase-item {
+            position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.8) translateY(50px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .showcase-item.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1) translateY(0);
+        }
+
+        .showcase-img {
+            max-width: 280px;
+            height: auto;
+            margin-bottom: 3rem;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            transform: translateY(60px);
+        }
+
+        .showcase-item:hover .showcase-img {
+            transform: translateY(60px) scale(1.05) rotate(2deg);
+        }
+
+        .glow-gold {
+            filter: drop-shadow(0 0 60px rgba(212, 175, 55, 0.5));
+        }
+
+        .glow-blue {
+            filter: drop-shadow(0 0 60px rgba(0, 100, 255, 0.5));
+        }
+
+        .glow-red {
+            filter: drop-shadow(0 0 60px rgba(255, 0, 0, 0.5));
+        }
+
+        .item-info h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            color: #d4af37;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .item-info p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+        }
+
+        .shop-btn {
+            padding: 1.2rem 3.5rem;
+            background: #d4af37;
+            color: #000;
+            border: none;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-btn:hover {
+            background: #fff;
+            letter-spacing: 0.4em;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 4rem;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: #d4af37;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-btn:hover {
+            background: #d4af37;
+            color: #000;
+            border-color: #d4af37;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .running-text {
+                font-size: 6rem;
+            }
+
+            .showcase-img {
+                max-width: 250px;
+            }
+
+            .item-info h3 {
+                font-size: 2.5rem;
+            }
+
+            .slider-nav {
+                padding: 0 1rem;
+                bottom: 2rem;
+                top: auto;
+                transform: none;
+            }
+
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+
+        .most-seller-heading {
+            position: absolute;
+            top: 5rem;
+            left: 6rem;
+            z-index: 10;
+        }
+
+        .most-seller-heading h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.9;
+        }
+
+        .best-seller-tag {
+            color: #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 0.5em;
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-text">VELIRRA</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-500" id="navbar">
+        <div class="glass px-6 lg:px-12 py-4">
+            <div class="flex justify-between items-center max-w-7xl mx-auto">
+                <a href="#" class="flex items-center space-x-3 group">
+                    <img src="logo.png" alt="Velirra Logo"
+                        class="h-10 w-auto brightness-110 group-hover:scale-110 transition-transform duration-300">
+                    <span class="text-2xl font-serif tracking-widest text-gold font-semibold">VELIRRA</span>
+                </a>
+
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#Categories"
+                        class="nav-link text-xs tracking-widest uppercase hover:text-gold transition-colors">Categories</a>
+                    <a href="#maison"
+                        class="nav-link text-xs tracking-widest uppercase hover:text-gold transition-colors">About
+                        Us</a>
+                    <a href="#contact"
+                        class="nav-link text-xs tracking-widest uppercase hover:text-gold transition-colors">Contact
+                        Us</a>
+                </div>
+
+                <div class="flex items-center space-x-6">
+                    <button class="hover:text-gold transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </button>
+                    <button class="hover:text-gold transition-colors relative">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                        </svg>
+                        <span
+                            class="absolute -top-2 -right-2 bg-gold text-black text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">2</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Image with Parallax -->
+        <div class="absolute inset-0 z-0">
+            <video autoplay muted loop playsinline class="w-full h-full object-cover opacity-60 scale-110" id="hero-bg">
+                <source src="vediobk.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80"></div>
+        </div>
+
+        <!-- Floating Particles Effect -->
+        <div class="absolute inset-0 z-0 opacity-30" id="particles"></div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+            <p class="text-gold text-xs tracking-[0.5em] uppercase mb-6 fade-in-up">Est. 2024 • Paris</p>
+            <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-light mb-8 leading-tight fade-in-up delay-200">
+                The Art of <br>
+                <span class="text-gold italic">Invisible</span> Luxury
+            </h1>
+            <p
+                class="text-gray-300 text-sm md:text-base tracking-wide max-w-2xl mx-auto mb-12 font-light leading-relaxed fade-in-up delay-300">
+                Discover fragrances that transcend the ordinary. Each scent is a masterpiece,
+                crafted with the world's rarest ingredients and bound by the poetry of memory.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up delay-500">
+                <a href="collections.html"
+                    class="group relative px-8 py-4 bg-transparent border border-gold text-gold-solid text-xs tracking-widest uppercase overflow-hidden transition-all hover:text-black inline-block">
+                    <span
+                        class="absolute inset-0 w-full h-full bg-gold transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300 ease-out"></span>
+                    <span class="relative z-10">Shop Now</span>
+                </a>
+                <a href="https://wa.me/923710738971" target="_blank"
+                    class="px-8 py-4 text-xs tracking-widest uppercase hover:text-gold transition-colors inline-block">
+                    Book Consultation
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-6 h-6 text-gold opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <section class="featured home-featured" id="Categories">
+        <div class="section-header reveal">
+            <p class="section-tag">Explore Your Essence</p>
+            <h2 class="section-title">Categories</h2>
+        </div>
+        <div class="featured-grid">
+            <!-- GENTS CARD -->
+            <a href="collections.html?cat=male" class="category-card reveal" data-category="male">
+                <div class="product-image">
+                    <img src="malebk.jpg" alt="Gents Collection">
+                    <div class="product-overlay"></div>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">For Him</p>
+                    <h3 class="product-name">The Gents Line</h3>
+                    <p class="story-text" style="font-size: 0.85rem; margin-top: 1rem;">Bold and powerful fragrances
+                        inspired by legendary icons.</p>
+                </div>
+            </a>
+
+            <!-- LADIES CARD -->
+            <a href="collections.html?cat=female" class="category-card reveal" data-category="female">
+                <div class="product-image">
+                    <img src="femalebk.jpg" alt="Ladies Collection">
+                    <div class="product-overlay"></div>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">For Her</p>
+                    <h3 class="product-name">The Ladies Line</h3>
+                    <p class="story-text" style="font-size: 0.85rem; margin-top: 1rem;">Graceful and radiant scents
+                        capturing the spirit of elegance.</p>
+                </div>
+            </a>
+
+            <!-- UNISEX CARD -->
+            <a href="collections.html?cat=unisex" class="category-card reveal" data-category="unisex">
+                <div class="product-image">
+                    <img src="unibk.jpg" alt="Unisex Collection">
+                    <div class="product-overlay"></div>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">Universal</p>
+                    <h3 class="product-name">The Unisex Line</h3>
+                    <p class="story-text" style="font-size: 0.85rem; margin-top: 1rem;">Infinite and mysterious blends
+                        that transcend boundaries.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Parallax Quote Section -->
+    <section class="parallax-bg relative py-32 px-6"
+        style="background-image: url('https://images.unsplash.com/photo-1616949755610-8c9bbc08f138?w=1920&q=80');">
+        <div class="absolute inset-0 bg-black/70"></div>
+        <div class="relative z-10 max-w-4xl mx-auto text-center">
+            <svg class="w-12 h-12 text-gold mx-auto mb-8 opacity-60" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                    d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+            <blockquote class="font-serif text-3xl md:text-5xl font-light italic leading-relaxed mb-8">
+                "A perfume is like a piece of clothing, <br>
+                <span class="text-gold">a message</span>, a way of presenting oneself."
+            </blockquote>
+            <cite class="text-xs tracking-[0.3em] uppercase not-italic text-gray-400">— Jean-Paul Guerlain</cite>
+        </div>
+    </section>
+
+    <!-- La Maison Section -->
+    <section id="maison" class="py-24 px-6 lg:px-12 bg-neutral-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <p class="text-gold text-xs tracking-[0.3em] uppercase mb-4">About Us</p>
+                    <h2 class="font-serif text-4xl md:text-5xl font-light mb-4">About Us</h2>
+                    <div class="w-20 h-0.5 bg-gold mb-10"></div>
+                    <div class="space-y-8 text-gray-300 font-light leading-relaxed">
+                        <div>
+                            <h3 class="text-white font-serif text-2xl mb-2">Designed For Presence, Engineered To Last.
+                            </h3>
+                            <p>
+                                At Velirra, we don’t just create scents; we engineer experiences. Our fragrances are
+                                formulated using highly concentrated oils to ensure that your signature scent stays
+                                with you from the first light of morning to the final hours of the night.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-gold text-sm tracking-widest uppercase mb-3 font-bold">Vision</h3>
+                            <p>
+                                To redefine the world of inspired perfumery by making high-end, luxury-grade scents
+                                accessible to everyone, everywhere, without compromising on quality or craftsmanship.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3 class="text-gold text-sm tracking-widest uppercase mb-3 font-bold">Mission</h3>
+                            <p>
+                                We are dedicated to sourcing the finest ingredients and blending them with precision.
+                                Our goal is to provide lasting confidence through a diverse collection of perfumes that
+                                evoke emotion and leave a legendary trail.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-1 lg:order-2 relative">
+                    <div class="aspect-[4/5] overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=800&q=80"
+                            alt="Perfume Craftsmanship"
+                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3rd Section: Product Showcase (Manual Slider) -->
+    <section class="showcase-section" id="showcase">
+        <div class="most-seller-heading reveal">
+            <h2>the most seller</h2>
+        </div>
+
+        <div class="showcase-sticky">
+            <!-- Large Running Text in Background (Marquee) -->
+            <div class="running-text-wrapper">
+                <div class="running-text" id="running-text">
+                    PERFUME THAT LAST IMPRESSIONS &nbsp;&nbsp;&nbsp;&nbsp; PERFUME THAT LAST IMPRESSIONS
+                    &nbsp;&nbsp;&nbsp;&nbsp; PERFUME THAT LAST IMPRESSIONS &nbsp;&nbsp;&nbsp;&nbsp;
+                    PERFUME THAT LAST IMPRESSIONS &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+            <!-- Slider Navigation -->
+            <div class="slider-nav">
+                <button id="prev-btn" class="nav-btn">&larr;</button>
+                <button id="next-btn" class="nav-btn">&rarr;</button>
+            </div>
+
+            <!-- Product Showcase Container -->
+            <div class="showcase-container">
+                <div class="showcase-item" id="item-1">
+                    <img src="legacy.png" alt="Legacy" class="showcase-img glow-gold">
+                    <div class="item-info">
+                        <h3>Legacy</h3>
+                        <button class="shop-btn" onclick="window.location.href='collections.html'">Shop Now</button>
+                    </div>
+                </div>
+                <div class="showcase-item" id="item-2">
+                    <img src="aqua.png" alt="Aqua" class="showcase-img glow-blue">
+                    <div class="item-info">
+                        <h3>Aqua</h3>
+                        <button class="shop-btn" onclick="window.location.href='collections.html'">Shop Now</button>
+                    </div>
+                </div>
+                <div class="showcase-item" id="item-3">
+                    <img src="intense.png" alt="Intense" class="showcase-img glow-red">
+                    <div class="item-info">
+                        <h3>Intense</h3>
+                        <button class="shop-btn" onclick="window.location.href='collections.html'">Shop Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-6 lg:px-12 bg-neutral-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-gold text-xs tracking-[0.3em] uppercase mb-4">Contact Us</p>
+                <h2 class="font-serif text-4xl md:text-5xl font-light">Get in Touch</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- WhatsApp -->
+                <a href="https://wa.me/923710738971" target="_blank"
+                    class="glass p-8 text-center hover-lift group border border-white/5">
+                    <div
+                        class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold/20 transition-colors">
+                        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.181-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.171.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.254-.041.398.305.144.346.491 1.2.534 1.288.043.087.072.188.014.305s-.087.188-.173.289c-.087.101-.183.226-.26.303-.092.093-.188.195-.081.379.107.184.475.786 1.021 1.272.705.626 1.299.821 1.487.915.188.094.298.077.407-.048.109-.125.462-.538.586-.721.124-.184.248-.154.417-.092.17.062 1.07.505 1.258.599.188.094.312.14.358.219.046.078.046.452-.098.857z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl mb-2 text-white">WhatsApp</h3>
+                    <p class="text-gray-500 text-sm">03710738971</p>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/velirra.store?igsh=NnB3aTUwbzc5dXRn" target="_blank"
+                    class="glass p-8 text-center hover-lift group border border-white/5">
+                    <div
+                        class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold/20 transition-colors">
+                        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl mb-2 text-white">Instagram</h3>
+                    <p class="text-gray-500 text-sm">@velirra.store</p>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/share/1bDXmCmiVy/" target="_blank"
+                    class="glass p-8 text-center hover-lift group border border-white/5">
+                    <div
+                        class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold/20 transition-colors">
+                        <svg class="w-6 h-6 text-gold" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl mb-2 text-white">Facebook</h3>
+                    <p class="text-gray-500 text-sm">Velirra Store</p>
+                </a>
+
+                <!-- Email -->
+                <a href="mailto:sales@velirra.store"
+                    class="glass p-8 text-center hover-lift group border border-white/5">
+                    <div
+                        class="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-gold/20 transition-colors">
+                        <svg class="w-6 h-6 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-xl mb-2 text-white">Email</h3>
+                    <p class="text-gray-500 text-sm">sales@velirra.store</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-24 px-6 lg:px-12 bg-neutral-900 border-t border-white/5">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="font-serif text-3xl md:text-4xl font-light mb-4">Join the Inner Circle</h2>
+            <p class="text-gray-400 mb-8 font-light">Subscribe to receive exclusive access to limited editions, private
+                events, and fragrance insights.</p>
+
+            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" placeholder="Your email address"
+                    class="flex-1 px-6 py-4 bg-transparent border border-white/20 text-sm focus:outline-none focus:border-gold transition-colors placeholder-gray-500">
+                <button type="submit"
+                    class="px-8 py-4 bg-gold text-black text-xs tracking-widest uppercase hover:bg-white transition-colors">
+                    Subscribe
+                </button>
+            </form>
+
+            <p class="text-gray-600 text-xs mt-6">By subscribing, you agree to our Privacy Policy.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-16 px-6 lg:px-12 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-1">
+                    <a href="#" class="flex items-center space-x-3 mb-6 group">
+                        <img src="logo.png" alt="Velirra Logo"
+                            class="h-8 w-auto brightness-110 group-hover:scale-110 transition-transform duration-300">
+                        <span class="text-2xl font-serif tracking-widest text-gold font-semibold">VELIRRA</span>
+                    </a>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">The art of perfumery, redefined. Creating
+                        timeless fragrances for the discerning few.</p>
+                    <div class="flex space-x-4">
+                        <a href="https://wa.me/923710738971" target="_blank"
+                            class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-gold hover:text-gold transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.181-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.171.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.001.332.005c.109.004.254-.041.398.305.144.346.491 1.2.534 1.288.043.087.072.188.014.305s-.087.188-.173.289c-.087.101-.183.226-.26.303-.092.093-.188.195-.081.379.107.184.475.786 1.021 1.272.705.626 1.299.821 1.487.915.188.094.298.077.407-.048.109-.125.462-.538.586-.721.124-.184.248-.154.417-.092.17.062 1.07.505 1.258.599.188.094.312.14.358.219.046.078.046.452-.098.857z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.facebook.com/share/1bDXmCmiVy/" target="_blank"
+                            class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-gold hover:text-gold transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/velirra.store?igsh=NnB3aTUwbzc5dXRn" target="_blank"
+                            class="w-10 h-10 border border-white/20 flex items-center justify-center hover:border-gold hover:text-gold transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-xs tracking-widest uppercase mb-6 text-gray-400">Collections</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-gold transition-colors">Signature</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Private Blend</a></li>
+                        <li><a href="#Categories" class="hover:text-gold transition-colors">Collections</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Limited Editions</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs tracking-widest uppercase mb-6 text-gray-400">About Us</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-gold transition-colors">Our Story</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Craftsmanship</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Sustainability</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Boutiques</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-xs tracking-widest uppercase mb-6 text-gray-400">Client Care</h4>
+                    <ul class="space-y-3 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-gold transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">Fragrance Care</a></li>
+                        <li><a href="#" class="hover:text-gold transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600">
+                <p>&copy; 2026 Velirra. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-gold transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-gold transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Navbar Scroll Effect
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                navbar.classList.add('py-0');
+            } else {
+                navbar.classList.remove('py-0');
+            }
+
+            lastScroll = currentScroll;
+        });
+
+        // Parallax Effect for Hero Background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBg = document.getElementById('hero-bg');
+            if (heroBg) {
+                heroBg.style.transform = `translateY(${scrolled * 0.5}px) scale(1.1)`;
+            }
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('reveal')) {
+                        entry.target.classList.add('active');
+                    } else {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animation classes
+        document.querySelectorAll('.scale-in, .fade-in-up, .reveal').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = Math.random() * 4 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = 'rgba(212, 175, 55, 0.3)';
+            particle.style.borderRadius = '50%';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animation = `float ${Math.random() * 10 + 5}s infinite ease-in-out`;
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add to cart interaction
+        document.querySelectorAll('button').forEach(button => {
+            if (button.textContent.includes('Add to Cart')) {
+                button.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const originalText = this.textContent;
+                    this.textContent = 'Added';
+                    this.style.background = '#d4af37';
+                    this.style.color = '#000';
+
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.style.background = 'rgba(255,255,255,0.1)';
+                        this.style.color = '#fff';
+                    }, 2000);
+                });
+            }
+        });
+        // Product Showcase Slider
+        let currentItem = 0;
+        const showcaseItems = document.querySelectorAll('.showcase-item');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+
+        if (nextBtn && prevBtn && showcaseItems.length > 0) {
+            function showProduct(index) {
+                showcaseItems.forEach((item, i) => {
+                    item.classList.remove('active');
+                    if (i === index) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+
+            nextBtn.addEventListener('click', () => {
+                currentItem = (currentItem + 1) % showcaseItems.length;
+                showProduct(currentItem);
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentItem = (currentItem - 1 + showcaseItems.length) % showcaseItems.length;
+                showProduct(currentItem);
+            });
+
+            // Initialize
+            showProduct(0);
+        }
+    </script>
+</body>
+
+</html>
