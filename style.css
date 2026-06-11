@@ -1006,6 +1006,20 @@ footer {
     border-radius: 2px;
 }
 
+.confirm-order-btn {
+    width: 100%;
+    padding: 18px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    margin-top: 20px;
+}
+
 .directions-btn:hover {
     background: #e74c3c;
     transform: translateY(-5px);
@@ -1192,6 +1206,42 @@ footer {
     font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.4s;
+    position: relative;
+}
+
+.add-to-cart-btn::after,
+.checkout-btn::after,
+.confirm-order-btn::after {
+    content: "free delivery in Lahore \a 200 delivery charges for other cities";
+    white-space: pre;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    width: max-content;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 1000;
+    pointer-events: none;
+    line-height: 1.6;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.add-to-cart-btn:hover::after,
+.checkout-btn:hover::after,
+.confirm-order-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+    bottom: 115%;
 }
 
 .add-to-cart-btn:hover {
@@ -1570,6 +1620,7 @@ footer {
     letter-spacing: 2px;
     cursor: pointer;
     transition: all 0.3s;
+    position: relative;
 }
 
 .checkout-btn:hover {

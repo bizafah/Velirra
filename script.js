@@ -1,15 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     /* --- SHARED DATA: PRODUCT DATABASE --- */
     const products = [
-        { id: 'legacy', name: 'Velirra Legacy', inspiration: 'Azzaro The Most Wanted', price: 2950, image: 'legacybk.png', url: 'product-legacy.html', gender: 'Men', notes: 'Cardamom, Ginger, Lemon' },
+        { id: 'legacy', name: 'Velirra Legacy', inspiration: 'Azzaro The Most Wanted', price: 2700, image: 'legacybk.png', url: 'product-legacy.html', gender: 'Men', notes: 'Cardamom, Ginger, Lemon' },
         { id: 'classic', name: 'Velirra Classic', inspiration: 'Dolce & Gabbana Pour Homme', price: 2700, image: 'classicbk.png', url: 'product-classic.html', gender: 'Men', notes: 'Citrus, Herbs, Tobacco' },
-        { id: '7one', name: 'Velirra 7ONE', inspiration: 'Invictus Legend', price: 2770, image: '7onebk.png', url: 'product-7one.html', gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood' },
+        { id: '7one', name: 'Velirra 7ONE', inspiration: 'Invictus Legend', price: 2400, image: '7onebk.png', url: 'product-7one.html', gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood' },
         { id: 'aqua', name: 'Velirra Aqua', inspiration: 'Acqua Di Gio', price: 3250, image: 'aquabk.png', url: 'product-aqua.html', gender: 'Men', notes: 'Bergamot, Marine, Cedarwood' },
-        { id: 'bloom', name: 'Velirra Bloom', inspiration: 'VS Bombshell', price: 2350, image: 'bloombk.png', url: 'product-bloom.html', gender: 'Women', notes: 'Passionfruit, Peony, Musk' },
-        { id: 'legendary', name: 'Velirra Legendary', inspiration: '1 Million Lucky', price: 2770, image: 'legendarybk.png', url: 'product-legendary.html', gender: 'Unisex', notes: 'Plum, Hazelnut, Amber' },
-        { id: 'intense', name: 'Velirra Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2770, image: 'intensebk.png', url: 'product-intense.html', gender: 'Unisex', notes: 'Raspberry, Leather, Amber' },
-        { id: 'ocean', name: 'Velirra Ocean', inspiration: 'Davidoff Cool Water', price: 2440, image: 'oceanbk.png', url: 'product-ocean.html', gender: 'Men', notes: 'Mint, Sea Water, Lavender' },
-        { id: 'prime', name: 'Velirra Prime', inspiration: 'Bleu de Chanel', price: 2550, image: 'primebk.png', url: 'product-prime.html', gender: 'Men', notes: 'Citrus, Spices, Siky Notes' }
+        { id: 'bloom', name: 'Velirra Bloom', inspiration: 'VS Bombshell', price: 1850, image: 'bloombk.png', url: 'product-bloom.html', gender: 'Women', notes: 'Passionfruit, Peony, Musk' },
+        { id: 'legendary', name: 'Velirra Legendary', inspiration: '1 Million Lucky', price: 2300, image: 'legendarybk.png', url: 'product-legendary.html', gender: 'Unisex', notes: 'Plum, Hazelnut, Amber' },
+        { id: 'intense', name: 'Velirra Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2400, image: 'intensebk.png', url: 'product-intense.html', gender: 'Unisex', notes: 'Raspberry, Leather, Amber' },
+        { id: 'ocean', name: 'Velirra Ocean', inspiration: 'Davidoff Cool Water', price: 1900, image: 'oceanbk.png', url: 'product-ocean.html', gender: 'Women', notes: 'Mint, Sea Water, Lavender' },
+        { id: 'prime', name: 'Velirra Prime', inspiration: 'Bleu de Chanel', price: 2200, image: 'primebk.png', url: 'product-prime.html', gender: 'Men', notes: 'Citrus, Spices, Siky Notes' },
+        { id: 'blue', name: 'Velirra Blue', inspiration: 'Light Blue D&G', price: 2900, image: 'Blue.jpeg', url: 'product-blue.html', gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper' },
+        { id: 'homme', name: 'Velirra Homme', inspiration: 'Dior Homme Intense', price: 2900, image: 'Homme.jpeg', url: 'product-homme.html', gender: 'Men', notes: 'Lavender, Iris, Cedar' }
     ];
 
     /* --- HERO SLIDER --- */
