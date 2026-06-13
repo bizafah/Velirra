@@ -25,7 +25,7 @@
                 'greeting': ['hi', 'hello', 'hey', 'salam', 'morning', 'evening', 'good day', 'who are you', 'how are you'],
                 'price_low': ['cheap', 'budget', 'affordable', 'low cost', 'under', 'below', 'less than', 'cheapest', 'pocket friendly'],
                 'price_high': ['premium', 'luxury', 'expensive', 'high end', 'best quality', 'top tier', 'gold', 'expensive'],
-                'shipping': ['shipping', 'delivery', 'arrive', 'wait', 'track', 'courier', 'days', 'ship'],
+                'shipping': ['shipping', 'delivery', 'arrive', 'wait', 'track', 'courier', 'days', 'ship', 'charges', 'fee', 'delivery fee'],
                 'location': ['location', 'where', 'shop', 'store', 'lahore', 'address', 'visit', 'office'],
                 'personality': ['personality', 'character', 'person', 'vibe', 'gift', 'husband', 'wife', 'girlfriend', 'boyfriend', 'matching', 'fit'],
                 'occurrence': ['office', 'work', 'date', 'party', 'wedding', 'event', 'daily', 'gym', 'summer', 'winter', 'night', 'morning', 'day'],
@@ -94,7 +94,7 @@
                 return "Our premium selection includes **AQUA** (₨ 3,250), **BLUE** (₨ 2,900), and **HOMME** (₨ 2,900). These use our highest quality imported oils.";
 
             case 'shipping':
-                return "We ship nationwide from Lahore! Delivery usually takes 1-3 days within Lahore and 3-5 days for other cities in Pakistan.";
+                return "We ship nationwide! Delivery is **FREE in Lahore**. For all other cities in Pakistan, the delivery charges are only **₨ 200**.";
 
             case 'location':
                 return "We are based in **Lahore**! While we are primarily an online store, we ensure safe and fast delivery to your doorstep anywhere in Pakistan.";
