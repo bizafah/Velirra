@@ -34,7 +34,8 @@
                 'gender_women': ['women', 'woman', 'ladies', 'female', 'girl', 'her'],
                 'longevity': ['long last', 'longevity', 'duration', 'hours', 'stays', 'fade', 'strong'],
                 'return': ['return', 'exchange', 'policy', 'refund', 'change'],
-                'contact': ['contact', 'whatsapp', 'number', 'phone', 'email', 'talk', 'human', 'call']
+                'contact': ['contact', 'whatsapp', 'number', 'phone', 'email', 'talk', 'human', 'call'],
+                'order': ['how to order', 'order', 'buy', 'purchase', 'how to buy', 'process']
             };
         }
 
@@ -119,6 +120,9 @@
 
             case 'contact':
                 return "You can chat with our team on WhatsApp at **03710738971** or email us at sales@velirra.store.";
+
+            case 'order':
+                return "Ordering is easy! Just follow these steps:\n\n1️⃣ **Select your category** (Male, Female, or Unisex).\n2️⃣ **Choose your perfume** and click on it.\n3️⃣ Click **Add to Cart**.\n4️⃣ Press **Checkout**.\n5️⃣ Fill in your **delivery details** and you've ordered successfully!\n\nNeed help? Just ask!";
 
             default:
                 // Specific matching for product names
@@ -250,7 +254,7 @@
                 z-index: 3000;
             }
             #chatbot-header { padding: 30px 20px; }
-            #velirra-chatbot-container { bottom: 20px; right: 20px; }
+            #velirra-chatbot-container { bottom: 90px; right: 20px; }
         }
     `;
 
