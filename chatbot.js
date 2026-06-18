@@ -10,10 +10,10 @@
         { id: 'classic', name: 'Classic', inspiration: 'Dolce & Gabbana Pour Homme', price: 2700, gender: 'Men', notes: 'Citrus, Herbs, Tobacco', personality: ['Elegant', 'Traditional', 'Mature'], vibe: 'Herbal & Woody' },
         { id: '7one', name: '7ONE', inspiration: 'Invictus Legend', price: 2400, gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood', personality: ['Energetic', 'Sporty', 'Active'], vibe: 'Fresh & Aquatic' },
         { id: 'aqua', name: 'Aqua', inspiration: 'Acqua Di Gio', price: 3250, gender: 'Men', notes: 'Bergamot, Marine, Cedarwood', personality: ['Professional', 'Clean', 'Office'], vibe: 'Oceanic' },
-        { id: 'bloom', name: 'Bloom', inspiration: 'VS Bombshell', price: 1850, gender: 'Women', notes: 'Passionfruit, Peony, Musk', personality: ['Sweet', 'Romantic', 'Youthful'], vibe: 'Floral & Fruity' },
+        { id: 'bloom', name: 'Bloom', inspiration: 'VS Bombshell', price: 1970, gender: 'Women', notes: 'Passionfruit, Peony, Musk', personality: ['Sweet', 'Romantic', 'Youthful'], vibe: 'Floral & Fruity' },
         { id: 'legendary', name: 'Legendary', inspiration: '1 Million Lucky', price: 2300, gender: 'Unisex', notes: 'Plum, Hazelnut, Amber', personality: ['Charismatic', 'Playful', 'Sweet'], vibe: 'Gourmand' },
-        { id: 'intense', name: 'Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2400, gender: 'Unisex', notes: 'Raspberry, Leather, Amber', personality: ['Rebellious', 'Sophisticated', 'Bold'], vibe: 'Leather & Suede' },
-        { id: 'prime', name: 'Prime', inspiration: 'Bleu de Chanel', price: 2200, gender: 'Men', notes: 'Citrus, Spices, Siky Notes', personality: ['Modern', 'Versatile', 'Professional'], vibe: 'Woody & Aromatic' },
+        { id: 'intense', name: 'Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2550, gender: 'Unisex', notes: 'Raspberry, Leather, Amber', personality: ['Rebellious', 'Sophisticated', 'Bold'], vibe: 'Leather & Suede' },
+        { id: 'prime', name: 'Prime', inspiration: 'Bleu de Chanel', price: 2450, gender: 'Men', notes: 'Citrus, Spices, Siky Notes', personality: ['Modern', 'Versatile', 'Professional'], vibe: 'Woody & Aromatic' },
         { id: 'blue', name: 'Blue', inspiration: 'Light Blue D&G', price: 2900, gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper', personality: ['Chic', 'Summer', 'Romantic'], vibe: 'Citrus & Floral' },
         { id: 'homme', name: 'Homme', inspiration: 'Dior Homme Intense', price: 2900, gender: 'Men', notes: 'Lavender, Iris, Cedar', personality: ['Luxurious', 'Formal', 'Mysterious'], vibe: 'Powdery & Elegant' }
     ];
@@ -77,7 +77,7 @@
                 resp += "\nWhich one sounds interesting to you?";
                 return resp;
             } else {
-                return `I'm sorry, we don't have any perfumes currently under ₨ ${maxPrice}. Our most affordable options are **BLOOM** and **OCEAN** starting at ₨ 1,850.`;
+                return `I'm sorry, we don't have any perfumes currently under ₨ ${maxPrice}. Our most affordable options are **BLOOM** and **OCEAN** starting at ₨ 1,970.`;
             }
         }
 
@@ -88,7 +88,7 @@
                 return "Salam! I'm the Velirra AI. I can help you find a perfume based on your price range, gender, or even your personality! What are you looking for today?";
 
             case 'price_low':
-                return "Our most affordable options are **BLOOM** (₨ 1,850) and **OCEAN** (₨ 1,900). Most of our core collection is priced around ₨ 2,400 to ₨ 2,700.";
+                return "Our most affordable options are **BLOOM** (₨ 1,970) and **OCEAN** (₨ 1,970). Most of our core collection is priced around ₨ 2,400 to ₨ 2,700.";
 
             case 'price_high':
                 return "Our premium selection includes **AQUA** (₨ 3,250), **BLUE** (₨ 2,900), and **HOMME** (₨ 2,900). These use our highest quality imported oils.";
