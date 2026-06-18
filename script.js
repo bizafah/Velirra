@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyPromoBtn = document.getElementById('apply-promo');
     const discountRow = document.getElementById('discount-row');
     const discountAmountDisplay = document.getElementById('discount-amount');
+    const deliveryRow = document.getElementById('delivery-row');
 
     function updateCartUI() {
         if (!cartItemsContainer) return;
@@ -96,6 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cartSubtotal.textContent = '₨ 0';
             cartCountBadge.textContent = '0';
             if (discountRow) discountRow.style.display = 'none';
+            if (deliveryRow) deliveryRow.style.display = 'none';
             isDiscountApplied = false;
             localStorage.removeItem('velirra_discount');
         } else {
@@ -121,9 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }).join('');
 
+            if (deliveryRow) deliveryRow.style.display = 'flex';
+
             if (isDiscountApplied) {
                 const discount = total * 0.20;
-                const grandTotal = total - discount + 200; // Adding delivery charges
+                const grandTotal = total - discount + 200;
                 if (discountRow) {
                     discountRow.style.display = 'flex';
                     discountAmountDisplay.textContent = `-₨ ${discount.toLocaleString()}`;
@@ -131,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cartSubtotal.textContent = `₨ ${grandTotal.toLocaleString()}`;
             } else {
                 if (discountRow) discountRow.style.display = 'none';
-                cartSubtotal.textContent = `₨ ${(total + 200).toLocaleString()}`; // Adding delivery charges
+                cartSubtotal.textContent = `₨ ${(total + 200).toLocaleString()}`;
             }
 
             cartCountBadge.textContent = count;
