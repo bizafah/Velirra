@@ -1213,45 +1213,9 @@ footer {
     position: relative;
 }
 
-.add-to-cart-btn::after,
-.checkout-btn::after,
-.confirm-order-btn::after {
-    content: "free delivery in Lahore \a 200 delivery charges for other cities";
-    white-space: pre;
-    position: absolute;
-    bottom: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #333;
-    color: #fff;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    width: max-content;
-    text-align: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    z-index: 1000;
-    pointer-events: none;
-    line-height: 1.6;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.add-to-cart-btn:hover::after,
-.checkout-btn:hover::after,
-.confirm-order-btn:hover::after {
-    opacity: 1;
-    visibility: visible;
-    bottom: 115%;
-}
-
 .add-to-cart-btn:hover {
-    background: #e74c3c;
+    background-color: #333;
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(231, 76, 60, 0.2);
 }
 
 .product-tabs {
@@ -1662,6 +1626,122 @@ footer {
         width: 100%;
         right: -100%;
     }
+}
+
+/* --- DELIVERY POLICY SECTION --- */
+.delivery-policy {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.delivery-policy .section-title {
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.policy-content {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.policy-content p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    color: #555;
+}
+
+.policy-content strong {
+    color: #000;
+}
+
+/* --- PRODUCT GALLERY SLIDER --- */
+.main-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.main-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f1f1;
+}
+
+.main-image.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.gallery-nav:hover {
+    background: #000;
+    color: #fff;
+}
+
+.gallery-nav.prev {
+    left: 15px;
+}
+
+.gallery-nav.next {
+    right: 15px;
+}
+
+.image-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.image-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.image-dot.active {
+    background: #000;
+    width: 20px;
+    border-radius: 4px;
 }
 
 /* HIGH PRIORITY MOBILE OVERRIDES */

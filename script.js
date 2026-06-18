@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     /* --- SHARED DATA: PRODUCT DATABASE --- */
     const products = [
-        { id: 'legacy', name: 'Velirra Legacy', inspiration: 'Azzaro The Most Wanted', price: 2700, image: 'legacybk.png', url: 'product-legacy.html', gender: 'Men', notes: 'Cardamom, Ginger, Lemon' },
-        { id: 'classic', name: 'Velirra Classic', inspiration: 'Dolce & Gabbana Pour Homme', price: 2700, image: 'classicbk.png', url: 'product-classic.html', gender: 'Men', notes: 'Citrus, Herbs, Tobacco' },
-        { id: '7one', name: 'Velirra 7ONE', inspiration: 'Invictus Legend', price: 2400, image: '7onebk.png', url: 'product-7one.html', gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood' },
-        { id: 'aqua', name: 'Velirra Aqua', inspiration: 'Acqua Di Gio', price: 3250, image: 'aquabk.png', url: 'product-aqua.html', gender: 'Men', notes: 'Bergamot, Marine, Cedarwood' },
-        { id: 'bloom', name: 'Velirra Bloom', inspiration: 'VS Bombshell', price: 1970, image: 'bloombk.png', url: 'product-bloom.html', gender: 'Women', notes: 'Passionfruit, Peony, Musk' },
-        { id: 'legendary', name: 'Velirra Legendary', inspiration: '1 Million Lucky', price: 2300, image: 'legendarybk.png', url: 'product-legendary.html', gender: 'Unisex', notes: 'Plum, Hazelnut, Amber' },
-        { id: 'intense', name: 'Velirra Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2550, image: 'intensebk.png', url: 'product-intense.html', gender: 'Unisex', notes: 'Raspberry, Leather, Amber' },
-        { id: 'ocean', name: 'Velirra Ocean', inspiration: 'Davidoff Cool Water', price: 1970, image: 'oceanbk.png', url: 'product-ocean.html', gender: 'Women', notes: 'Mint, Sea Water, Lavender' },
-        { id: 'prime', name: 'Velirra Prime', inspiration: 'Bleu de Chanel', price: 2450, image: 'primebk.png', url: 'product-prime.html', gender: 'Men', notes: 'Citrus, Spices, Siky Notes' },
+        { id: 'legacy', name: 'Velirra Legacy', inspiration: 'Azzaro The Most Wanted', price: 2700, image: 'legacy_new.jpeg', url: 'product-legacy.html', gender: 'Men', notes: 'Cardamom, Ginger, Lemon' },
+        { id: 'classic', name: 'Velirra Classic', inspiration: 'Dolce & Gabbana Pour Homme', price: 2700, image: 'classic_new.jpeg', url: 'product-classic.html', gender: 'Men', notes: 'Citrus, Herbs, Tobacco' },
+        { id: '7one', name: 'Velirra 7ONE', inspiration: 'Invictus Legend', price: 2400, image: '7one_new.jpeg', url: 'product-7one.html', gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood' },
+        { id: 'aqua', name: 'Velirra Aqua', inspiration: 'Acqua Di Gio', price: 3250, image: 'aqua_new.jpeg', url: 'product-aqua.html', gender: 'Men', notes: 'Bergamot, Marine, Cedarwood' },
+        { id: 'bloom', name: 'Velirra Bloom', inspiration: 'VS Bombshell', price: 1970, image: 'bloom_new.jpeg', url: 'product-bloom.html', gender: 'Women', notes: 'Passionfruit, Peony, Musk' },
+        { id: 'legendary', name: 'Velirra Legendary', inspiration: '1 Million Lucky', price: 2300, image: 'legendary_new.jpeg', url: 'product-legendary.html', gender: 'Unisex', notes: 'Plum, Hazelnut, Amber' },
+        { id: 'intense', name: 'Velirra Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2550, image: 'intense_new.jpeg', url: 'product-intense.html', gender: 'Unisex', notes: 'Raspberry, Leather, Amber' },
+        { id: 'ocean', name: 'Velirra Ocean', inspiration: 'Davidoff Cool Water', price: 1970, image: 'ocean_new.jpeg', url: 'product-ocean.html', gender: 'Women', notes: 'Mint, Sea Water, Lavender' },
+        { id: 'prime', name: 'Velirra Prime', inspiration: 'Bleu de Chanel', price: 2450, image: 'prime_new.jpeg', url: 'product-prime.html', gender: 'Men', notes: 'Citrus, Spices, Siky Notes' },
         { id: 'blue', name: 'Velirra Blue', inspiration: 'Light Blue D&G', price: 2900, image: 'Blue.jpeg', url: 'product-blue.html', gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper' },
         { id: 'homme', name: 'Velirra Homme', inspiration: 'Dior Homme Intense', price: 2900, image: 'Homme.jpeg', url: 'product-homme.html', gender: 'Men', notes: 'Lavender, Iris, Cedar' }
     ];
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (isDiscountApplied) {
                 const discount = total * 0.20;
-                const grandTotal = total - discount;
+                const grandTotal = total - discount + 200; // Adding delivery charges
                 if (discountRow) {
                     discountRow.style.display = 'flex';
                     discountAmountDisplay.textContent = `-₨ ${discount.toLocaleString()}`;
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cartSubtotal.textContent = `₨ ${grandTotal.toLocaleString()}`;
             } else {
                 if (discountRow) discountRow.style.display = 'none';
-                cartSubtotal.textContent = `₨ ${total.toLocaleString()}`;
+                cartSubtotal.textContent = `₨ ${(total + 200).toLocaleString()}`; // Adding delivery charges
             }
 
             cartCountBadge.textContent = count;
@@ -269,10 +269,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const discount = total * 0.20;
                 message += `\nSubtotal: ₨ ${total}\n`;
                 message += `Promo Discount (20%): -₨ ${discount}\n`;
-                message += `*Grand Total: ₨ ${total - discount}*\n`;
+                message += `Delivery Charges: ₨ 200\n`;
+                message += `*Grand Total: ₨ ${total - discount + 200}*\n`;
                 message += `Code Applied: velirra12345\n`;
             } else {
-                message += `\n*Total: ₨ ${total}*\n`;
+                message += `\nSubtotal: ₨ ${total}\n`;
+                message += `Delivery Charges: ₨ 200\n`;
+                message += `*Total: ₨ ${total + 200}*\n`;
             }
 
             message += "\n*--- DELIVERY DETAILS ---*\n";
@@ -370,4 +373,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial Load
     updateCartUI();
+
+    // --- PRODUCT GALLERY SLIDER LOGIC ---
+    const galleryContainers = document.querySelectorAll('.product-gallery');
+    galleryContainers.forEach(gallery => {
+        const images = gallery.querySelectorAll('.main-image');
+        const dots = gallery.querySelectorAll('.image-dot');
+        const prevBtn = gallery.querySelector('.prev');
+        const nextBtn = gallery.querySelector('.next');
+        let currentIndex = 0;
+
+        if (!images.length || !prevBtn || !nextBtn) return;
+
+        function updateGallery(index) {
+            images.forEach(img => img.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            if (images[index]) images[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        prevBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let index = currentIndex - 1;
+            if (index < 0) index = images.length - 1;
+            updateGallery(index);
+        });
+
+        nextBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let index = currentIndex + 1;
+            if (index >= images.length) index = 0;
+            updateGallery(index);
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => updateGallery(index));
+        });
+    });
 });

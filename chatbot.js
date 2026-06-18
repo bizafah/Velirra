@@ -94,7 +94,7 @@
                 return "Our premium selection includes **AQUA** (₨ 3,250), **BLUE** (₨ 2,900), and **HOMME** (₨ 2,900). These use our highest quality imported oils.";
 
             case 'shipping':
-                return "We ship nationwide! Delivery is **FREE in Lahore**. For all other cities in Pakistan, the delivery charges are only **₨ 200**.";
+                return "We ship nationwide! The delivery charges are only **₨ 200** for all orders across Pakistan.";
 
             case 'location':
                 return "We are based in **Lahore**! While we are primarily an online store, we ensure safe and fast delivery to your doorstep anywhere in Pakistan.";
