@@ -250,8 +250,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (checkoutForm) {
-        checkoutForm.addEventListener('submit', (e) => {
+        checkoutForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            const confirmBtn = checkoutForm.querySelector('.confirm-order-btn');
+            const originalBtnText = confirmBtn.textContent;
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = "SAVING ORDER...";
 
             // Get Delivery Details
             const phone = document.getElementById('checkout-phone').value;
@@ -259,14 +264,49 @@ document.addEventListener('DOMContentLoaded', () => {
             const postal = document.getElementById('checkout-postal').value;
             const location = document.getElementById('checkout-location').value;
 
-            // Construct Message
-            let message = "Salam Velirra! I would like to place an order:\n\n";
+            // Generate a unique Order ID
+            const orderId = "VEL-" + Math.floor(1000 + Math.random() * 9000);
+
+            // Format Items for the Sheet
+            const itemsString = cart.map(item => `${item.name} (x${item.quantity})`).join(", ");
+
+            // Calculate Totals
+            let total = 0;
+            cart.forEach(item => total += item.price * item.quantity);
+            let finalPrice = total + 200;
+            if (isDiscountApplied) {
+                finalPrice = (total * 0.80) + 200;
+            }
+
+            // --- SAVE TO GOOGLE SHEETS ---
+            const scriptURL = "https://script.google.com/macros/s/AKfycbzBGcBuTgUaQXuZkRUQ0WwdCbcnp_raWDMpaYL4XEqmk2UfJlX8uYQsQayf2R_NhVHueA/exec";
+
+            try {
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Google Apps Script requires no-cors for simple posts
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: "add",
+                        orderId: orderId,
+                        phone: phone,
+                        address: address + (postal ? ` (Postal: ${postal})` : ""),
+                        items: itemsString,
+                        total: finalPrice,
+                        location: location
+                    })
+                });
+            } catch (error) {
+                console.error("Error saving to sheet:", error);
+            }
+
+            // Construct WhatsApp Message
+            let message = `Salam Velirra! I would like to place an order (ID: ${orderId}):\n\n`;
             message += "*--- ORDER DETAILS ---*\n";
 
-            let total = 0;
             cart.forEach(item => {
                 message += `• ${item.name} x${item.quantity} (₨ ${item.price * item.quantity})\n`;
-                total += item.price * item.quantity;
             });
 
             if (isDiscountApplied) {
@@ -274,12 +314,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 message += `\nSubtotal: ₨ ${total}\n`;
                 message += `Promo Discount (20%): -₨ ${discount}\n`;
                 message += `Delivery Charges: ₨ 200\n`;
-                message += `*Grand Total: ₨ ${total - discount + 200}*\n`;
+                message += `*Grand Total: ₨ ${finalPrice}*\n`;
                 message += `Code Applied: velirra12345\n`;
             } else {
                 message += `\nSubtotal: ₨ ${total}\n`;
                 message += `Delivery Charges: ₨ 200\n`;
-                message += `*Total: ₨ ${total + 200}*\n`;
+                message += `*Total: ₨ ${finalPrice}*\n`;
             }
 
             message += "\n*--- DELIVERY DETAILS ---*\n";
@@ -290,6 +330,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             message += "\n\nPlease let me know the payment details.";
 
+            // Reset Button
+            confirmBtn.disabled = false;
+            confirmBtn.textContent = originalBtnText;
+
             // Open WhatsApp
             const encodedMessage = encodeURIComponent(message);
             window.open(`https://wa.me/923710738971?text=${encodedMessage}`, '_blank');
@@ -299,8 +343,8 @@ document.addEventListener('DOMContentLoaded', () => {
             drawerOverlay.classList.remove('active');
 
             // Optional: Clear cart after order
-            // cart = [];
-            // updateCartUI();
+            cart = [];
+            updateCartUI();
         });
     }
 

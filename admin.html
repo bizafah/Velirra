@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Velirra Admin | Order Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --gold: #c9a962;
+            --dark: #0a0a0a;
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            background-color: var(--dark);
+            color: white;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--gold);
+            padding-bottom: 20px;
+        }
+
+        .admin-header h1 {
+            font-size: 2rem;
+            letter-spacing: 5px;
+            color: var(--gold);
+        }
+
+        .refresh-btn {
+            background: var(--gold);
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .refresh-btn:hover {
+            transform: scale(1.05);
+            background: #e0bc6e;
+        }
+
+        .orders-table-wrapper {
+            overflow-x: auto;
+            background: var(--glass);
+            border-radius: 12px;
+            border: 1px solid rgba(201, 169, 98, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            color: var(--gold);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #f1c40f;
+            color: black;
+        }
+
+        .status-accepted {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .status-rejected {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .btn-accept {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .btn-reject {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .btn:disabled {
+            background: #444;
+            cursor: not-allowed;
+        }
+
+        #loading {
+            text-align: center;
+            padding: 50px;
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        @media (max-width: 768px) {
+            .admin-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            th,
+            td {
+                padding: 10px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-container">
+        <header class="admin-header">
+            <h1>VELIRRA ADMIN</h1>
+            <button class="refresh-btn" onclick="fetchOrders()"><i class="fa-solid fa-rotate"></i> REFRESH
+                ORDERS</button>
+        </header>
+
+        <div id="loading">Loading orders from Google Sheets...</div>
+
+        <div class="orders-table-wrapper" id="table-container" style="display: none;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>ID</th>
+                        <th>Phone</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-list">
+                    <!-- Orders will be injected here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const scriptURL = "https://script.google.com/macros/s/AKfycbzBGcBuTgUaQXuZkRUQ0WwdCbcnp_raWDMpaYL4XEqmk2UfJlX8uYQsQayf2R_NhVHueA/exec";
+
+        // Simple security check
+        const pass = prompt("Enter Admin Password:");
+        if (pass !== "velirra2026") {
+            alert("Access Denied");
+            document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:100px;'>ACCESS DENIED</h1>";
+        } else {
+            fetchOrders();
+        }
+
+        async function fetchOrders() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('table-container').style.display = 'none';
+
+            try {
+                const response = await fetch(scriptURL);
+                const orders = await response.json();
+                renderOrders(orders);
+            } catch (error) {
+                console.error("Error fetching orders:", error);
+                document.getElementById('loading').textContent = "Failed to load orders. Check script URL.";
+            }
+        }
+
+        function renderOrders(orders) {
+            const list = document.getElementById('orders-list');
+            list.innerHTML = "";
+
+            // Show latest orders first
+            orders.reverse();
+
+            orders.forEach(order => {
+                const tr = document.createElement('tr');
+                const date = new Date(order.Date).toLocaleDateString();
+
+                tr.innerHTML = `
+                    <td>${date}</td>
+                    <td><b>${order["Order ID"]}</b></td>
+                    <td>${order.Phone}</td>
+                    <td style="font-size: 0.8rem;">${order.Items}</td>
+                    <td style="color:var(--gold)">₨ ${order.Total}</td>
+                    <td><span class="status-badge status-${order.Status.toLowerCase()}">${order.Status}</span></td>
+                    <td class="action-btns">
+                        <button class="btn btn-accept" onclick="updateStatus('${order["Order ID"]}', 'Accepted', this)">Accept</button>
+                        <button class="btn btn-reject" onclick="updateStatus('${order["Order ID"]}', 'Rejected', this)">Reject</button>
+                    </td>
+                `;
+                list.appendChild(tr);
+            });
+
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('table-container').style.display = 'block';
+        }
+
+        async function updateStatus(orderId, newStatus, btn) {
+            if (!confirm(`Are you sure you want to mark ${orderId} as ${newStatus}?`)) return;
+
+            const row = btn.closest('tr');
+            btn.disabled = true;
+            btn.textContent = "...";
+
+            try {
+                // We use POST to update status
+                await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: JSON.stringify({
+                        action: "update",
+                        orderId: orderId,
+                        status: newStatus
+                    })
+                });
+
+                // Since 'no-cors' doesn't return a response we can read, 
+                // we assume success and update the UI locally
+                const badge = row.querySelector('.status-badge');
+                badge.className = `status-badge status-${newStatus.toLowerCase()}`;
+                badge.textContent = newStatus;
+
+                alert(`Order ${orderId} has been ${newStatus}!`);
+            } catch (error) {
+                console.error("Error updating order:", error);
+                alert("Failed to update status.");
+            } finally {
+                btn.disabled = false;
+                btn.textContent = newStatus === 'Accepted' ? 'Accept' : 'Reject';
+            }
+        }
+    </script>
+</body>
+
+</html>
