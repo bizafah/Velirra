@@ -4,66 +4,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Velirra Admin | Order Management</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Velirra Admin | Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --gold: #c9a962;
-            --dark: #0a0a0a;
-            --glass: rgba(255, 255, 255, 0.05);
+            --primary: #c9a962;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
 
-        body {
-            background-color: var(--dark);
-            color: white;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        .admin-container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 20px;
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: flex;
+            min-height: 100vh;
         }
 
-        .admin-header {
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 4px;
+            color: var(--primary);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            flex: 1;
+        }
+
+        .nav-links li {
+            margin-bottom: 10px;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--bg-body);
+            color: var(--primary);
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            padding: 40px;
+        }
+
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
-            border-bottom: 1px solid var(--gold);
-            padding-bottom: 20px;
         }
 
-        .admin-header h1 {
-            font-size: 2rem;
-            letter-spacing: 5px;
-            color: var(--gold);
+        .header-title h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .refresh-btn {
-            background: var(--gold);
-            color: black;
+            background: var(--primary);
+            color: white;
             border: none;
-            padding: 10px 20px;
-            font-weight: bold;
+            padding: 12px 24px;
+            font-weight: 700;
+            border-radius: 8px;
             cursor: pointer;
-            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(201, 169, 98, 0.2);
         }
 
         .refresh-btn:hover {
-            transform: scale(1.05);
-            background: #e0bc6e;
+            transform: translateY(-2px);
+            background: #b89a58;
         }
 
-        .orders-table-wrapper {
-            overflow-x: auto;
-            background: var(--glass);
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-body);
             border-radius: 12px;
-            border: 1px solid rgba(201, 169, 98, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .stat-info h3 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .stat-info .value {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        /* Orders Table */
+        .card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            max-width: 300px;
+            width: 100%;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .table-responsive {
+            overflow-x: auto;
         }
 
         table {
@@ -72,138 +225,283 @@
             text-align: left;
         }
 
-        th,
-        td {
-            padding: 15px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
         th {
-            color: var(--gold);
+            background: var(--bg-body);
+            padding: 15px 25px;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
             letter-spacing: 1px;
         }
 
+        td {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .order-id {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .customer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .customer-phone {
+            font-weight: 600;
+        }
+
+        .customer-address {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            max-width: 250px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .status-badge {
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: capitalize;
+            display: inline-block;
         }
 
         .status-pending {
-            background: #f1c40f;
-            color: black;
+            background: #fef3c7;
+            color: #92400e;
         }
 
         .status-accepted {
-            background: #2ecc71;
-            color: white;
+            background: #d1fae5;
+            color: #065f46;
         }
 
         .status-rejected {
-            background: #e74c3c;
-            color: white;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .item-list {
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
 
         .action-btns {
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
-        .btn {
-            padding: 6px 12px;
-            border-radius: 4px;
+        .btn-action {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: white;
             cursor: pointer;
-            border: none;
-            font-size: 0.75rem;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: 0.2s;
         }
 
-        .btn-accept {
-            background: #2ecc71;
+        .btn-accept:hover {
+            background: var(--success);
             color: white;
+            border-color: var(--success);
         }
 
-        .btn-reject {
-            background: #e74c3c;
+        .btn-reject:hover {
+            background: var(--danger);
             color: white;
+            border-color: var(--danger);
         }
 
-        .btn:hover {
-            opacity: 0.8;
-        }
-
-        .btn:disabled {
-            background: #444;
-            cursor: not-allowed;
+        .btn-view:hover {
+            background: var(--bg-body);
+            color: var(--primary);
         }
 
         #loading {
+            padding: 60px;
             text-align: center;
-            padding: 50px;
-            font-style: italic;
-            color: var(--gold);
+            color: var(--text-muted);
+        }
+
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 80px;
+                padding: 30px 10px;
+            }
+
+            .sidebar .logo,
+            .nav-links span {
+                display: none;
+            }
+
+            .nav-links a {
+                justify-content: center;
+                padding: 15px;
+            }
+
+            .main-content {
+                margin-left: 80px;
+            }
         }
 
         @media (max-width: 768px) {
-            .admin-header {
+            .main-content {
+                padding: 20px;
+            }
+
+            header {
                 flex-direction: column;
-                text-align: center;
+                align-items: flex-start;
                 gap: 20px;
             }
 
-            th,
-            td {
-                padding: 10px;
-                font-size: 0.8rem;
+            .refresh-btn {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
 </head>
 
 <body>
+    <aside class="sidebar">
+        <div class="logo">VELIRRA</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active"><i class="fa-solid fa-house"></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-bag-shopping"></i> <span>Orders</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-users"></i> <span>Customers</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-chart-line"></i> <span>Analytics</span></a></li>
+        </ul>
+        <div class="nav-links" style="margin-top: auto;">
+            <a href="index.html"><i class="fa-solid fa-arrow-left"></i> <span>View Store</span></a>
+        </div>
+    </aside>
 
-    <div class="admin-container">
-        <header class="admin-header">
-            <h1>VELIRRA ADMIN</h1>
-            <button class="refresh-btn" onclick="fetchOrders()"><i class="fa-solid fa-rotate"></i> REFRESH
-                ORDERS</button>
+    <main class="main-content">
+        <header>
+            <div class="header-title">
+                <h1>Welcome Back, Admin</h1>
+                <p id="current-date"></p>
+            </div>
+            <button class="refresh-btn" onclick="fetchOrders()">
+                <i class="fa-solid fa-rotate"></i> REFRESH DATA
+            </button>
         </header>
 
-        <div id="loading">Loading orders from Google Sheets...</div>
-
-        <div class="orders-table-wrapper" id="table-container" style="display: none;">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>ID</th>
-                        <th>Phone</th>
-                        <th>Items</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="orders-list">
-                    <!-- Orders will be injected here -->
-                </tbody>
-            </table>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                <div class="stat-info">
+                    <h3>Total Orders</h3>
+                    <div class="value" id="stat-total-orders">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="color:var(--success)"><i class="fa-solid fa-money-bill-trend-up"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Total Revenue</h3>
+                    <div class="value" id="stat-revenue">₨ 0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="color:var(--warning)"><i class="fa-solid fa-clock"></i></div>
+                <div class="stat-info">
+                    <h3>Pending Orders</h3>
+                    <div class="value" id="stat-pending">0</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="color:#6366f1"><i class="fa-solid fa-user-tag"></i></div>
+                <div class="stat-info">
+                    <h3>Unique Customers</h3>
+                    <div class="value" id="stat-customers">0</div>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Recent Orders</h3>
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="order-search" placeholder="Search orders..." oninput="filterOrders()">
+                </div>
+            </div>
+            <div id="loading">
+                <div class="loader"></div>
+                <p>Fetching latest data from Velirra Sheets...</p>
+            </div>
+            <div class="table-responsive" id="table-container" style="display: none;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-list">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 
     <script>
         const scriptURL = "https://script.google.com/macros/s/AKfycbzBGcBuTgUaQXuZkRUQ0WwdCbcnp_raWDMpaYL4XEqmk2UfJlX8uYQsQayf2R_NhVHueA/exec";
+        let allOrders = [];
 
-        // Simple security check
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', {
+            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        // Auth
         const pass = prompt("Enter Admin Password:");
         if (pass !== "velirra2026") {
-            alert("Access Denied");
-            document.body.innerHTML = "<h1 style='color:red; text-align:center; margin-top:100px;'>ACCESS DENIED</h1>";
+            document.body.innerHTML = "<div style='display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:20px; background:white;'><h1 style='color:var(--danger);'>ACCESS DENIED</h1><button onclick='location.reload()' style='padding:10px 20px;border:none;background:var(--primary);color:white;cursor:pointer;border-radius:8px;'>Retry</button></div>";
         } else {
             fetchOrders();
         }
@@ -214,12 +512,28 @@
 
             try {
                 const response = await fetch(scriptURL);
-                const orders = await response.json();
-                renderOrders(orders);
+                allOrders = await response.json();
+                updateStats(allOrders);
+                renderOrders(allOrders);
             } catch (error) {
-                console.error("Error fetching orders:", error);
-                document.getElementById('loading').textContent = "Failed to load orders. Check script URL.";
+                console.error("Error:", error);
+                document.getElementById('loading').innerHTML = `<p style="color:var(--danger)">Failed to connect. Make sure the Google Script URL is correct.</p>`;
             }
+        }
+
+        function updateStats(orders) {
+            document.getElementById('stat-total-orders').textContent = orders.length;
+
+            const pending = orders.filter(o => o.Status === 'Pending').length;
+            document.getElementById('stat-pending').textContent = pending;
+
+            const revenue = orders
+                .filter(o => o.Status === 'Accepted')
+                .reduce((acc, curr) => acc + (parseFloat(curr.Total.toString().replace(/,/g, '')) || 0), 0);
+            document.getElementById('stat-revenue').textContent = `₨ ${revenue.toLocaleString()}`;
+
+            const customers = new Set(orders.map(o => o.Phone)).size;
+            document.getElementById('stat-customers').textContent = customers;
         }
 
         function renderOrders(orders) {
@@ -227,22 +541,26 @@
             list.innerHTML = "";
 
             // Show latest orders first
-            orders.reverse();
-
-            orders.forEach(order => {
+            [...orders].reverse().forEach(order => {
                 const tr = document.createElement('tr');
-                const date = new Date(order.Date).toLocaleDateString();
+                const date = new Date(order.Date).toLocaleDateString('en-GB');
 
                 tr.innerHTML = `
                     <td>${date}</td>
-                    <td><b>${order["Order ID"]}</b></td>
-                    <td>${order.Phone}</td>
-                    <td style="font-size: 0.8rem;">${order.Items}</td>
-                    <td style="color:var(--gold)">₨ ${order.Total}</td>
+                    <td><span class="order-id">${order["Order ID"]}</span></td>
+                    <td>
+                        <div class="customer-info">
+                            <span class="customer-phone">${order.Phone}</span>
+                            <span class="customer-address" title="${order.Address}">${order.Address}</span>
+                        </div>
+                    </td>
+                    <td><div class="item-list">${order.Items}</div></td>
+                    <td><span style="font-weight:700">₨ ${order.Total}</span></td>
                     <td><span class="status-badge status-${order.Status.toLowerCase()}">${order.Status}</span></td>
                     <td class="action-btns">
-                        <button class="btn btn-accept" onclick="updateStatus('${order["Order ID"]}', 'Accepted', this)">Accept</button>
-                        <button class="btn btn-reject" onclick="updateStatus('${order["Order ID"]}', 'Rejected', this)">Reject</button>
+                        <button class="btn-action btn-accept" onclick="updateStatus('${order["Order ID"]}', 'Accepted', this)" title="Accept"><i class="fa-solid fa-check"></i></button>
+                        <button class="btn-action btn-reject" onclick="updateStatus('${order["Order ID"]}', 'Rejected', this)" title="Reject"><i class="fa-solid fa-xmark"></i></button>
+                        ${order.Location ? `<a href="${order.Location}" target="_blank" class="btn-action btn-view" title="Map"><i class="fa-solid fa-location-dot"></i></a>` : ''}
                     </td>
                 `;
                 list.appendChild(tr);
@@ -252,15 +570,24 @@
             document.getElementById('table-container').style.display = 'block';
         }
 
-        async function updateStatus(orderId, newStatus, btn) {
-            if (!confirm(`Are you sure you want to mark ${orderId} as ${newStatus}?`)) return;
+        function filterOrders() {
+            const query = document.getElementById('order-search').value.toLowerCase();
+            const filtered = allOrders.filter(o =>
+                (o["Order ID"] && o["Order ID"].toString().toLowerCase().includes(query)) ||
+                (o.Phone && o.Phone.toString().toLowerCase().includes(query)) ||
+                (o.Items && o.Items.toString().toLowerCase().includes(query))
+            );
+            renderOrders(filtered);
+        }
 
-            const row = btn.closest('tr');
+        async function updateStatus(orderId, newStatus, btn) {
+            if (!confirm(`Mark ${orderId} as ${newStatus}?`)) return;
+
+            const icon = btn.innerHTML;
             btn.disabled = true;
-            btn.textContent = "...";
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
 
             try {
-                // We use POST to update status
                 await fetch(scriptURL, {
                     method: 'POST',
                     mode: 'no-cors',
@@ -271,19 +598,21 @@
                     })
                 });
 
-                // Since 'no-cors' doesn't return a response we can read, 
-                // we assume success and update the UI locally
+                // Assume success and update UI
+                const row = btn.closest('tr');
                 const badge = row.querySelector('.status-badge');
                 badge.className = `status-badge status-${newStatus.toLowerCase()}`;
                 badge.textContent = newStatus;
 
-                alert(`Order ${orderId} has been ${newStatus}!`);
+                // Re-fetch to update stats
+                setTimeout(fetchOrders, 1000);
+
             } catch (error) {
-                console.error("Error updating order:", error);
+                console.error("Error:", error);
                 alert("Failed to update status.");
             } finally {
                 btn.disabled = false;
-                btn.textContent = newStatus === 'Accepted' ? 'Accept' : 'Reject';
+                btn.innerHTML = icon;
             }
         }
     </script>
