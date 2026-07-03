@@ -1895,3 +1895,59 @@ footer {
         padding: 30px 20px;
     }
 }
+
+/* Premium Divider styles */
+.premium-divider {
+    margin-bottom: 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+}
+
+.premium-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c9a962, transparent);
+    display: block;
+}
+
+.premium-label {
+    font-size: 2.5rem;
+    letter-spacing: 0.35rem;
+    color: #c9a962;
+    white-space: nowrap;
+    font-weight: 800;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .premium-label {
+        font-size: 1.4rem;
+        letter-spacing: 0.15rem;
+        white-space: normal;
+        font-weight: 800;
+        text-align: center;
+        color: #c9a962;
+        width: 100%;
+        display: block;
+    }
+
+    .premium-line {
+        display: none;
+    }
+
+    .premium-divider {
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+        justify-content: center;
+    }
+
+    .section-title {
+        font-size: 2rem !important;
+        margin-bottom: 30px !important;
+    }
+}

@@ -9,13 +9,13 @@
         { id: 'legacy', name: 'Legacy', inspiration: 'Azzaro The Most Wanted', price: 2700, gender: 'Men', notes: 'Cardamom, Ginger, Lemon', personality: ['Bold', 'Confident', 'Night'], vibe: 'Warm & Spicy' },
         { id: 'classic', name: 'Classic', inspiration: 'Dolce & Gabbana Pour Homme', price: 2700, gender: 'Men', notes: 'Citrus, Herbs, Tobacco', personality: ['Elegant', 'Traditional', 'Mature'], vibe: 'Herbal & Woody' },
         { id: '7one', name: '7ONE', inspiration: 'Invictus Legend', price: 2400, gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood', personality: ['Energetic', 'Sporty', 'Active'], vibe: 'Fresh & Aquatic' },
-        { id: 'aqua', name: 'Aqua', inspiration: 'Acqua Di Gio', price: 3250, gender: 'Men', notes: 'Bergamot, Marine, Cedarwood', personality: ['Professional', 'Clean', 'Office'], vibe: 'Oceanic' },
         { id: 'bloom', name: 'Bloom', inspiration: 'VS Bombshell', price: 1970, gender: 'Women', notes: 'Passionfruit, Peony, Musk', personality: ['Sweet', 'Romantic', 'Youthful'], vibe: 'Floral & Fruity' },
         { id: 'legendary', name: 'Legendary', inspiration: '1 Million Lucky', price: 2300, gender: 'Unisex', notes: 'Plum, Hazelnut, Amber', personality: ['Charismatic', 'Playful', 'Sweet'], vibe: 'Gourmand' },
         { id: 'intense', name: 'Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2550, gender: 'Unisex', notes: 'Raspberry, Leather, Amber', personality: ['Rebellious', 'Sophisticated', 'Bold'], vibe: 'Leather & Suede' },
         { id: 'prime', name: 'Prime', inspiration: 'Bleu de Chanel', price: 2450, gender: 'Men', notes: 'Citrus, Spices, Siky Notes', personality: ['Modern', 'Versatile', 'Professional'], vibe: 'Woody & Aromatic' },
         { id: 'blue', name: 'Blue', inspiration: 'Light Blue D&G', price: 2900, gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper', personality: ['Chic', 'Summer', 'Romantic'], vibe: 'Citrus & Floral' },
-        { id: 'homme', name: 'Homme', inspiration: 'Dior Homme Intense', price: 2900, gender: 'Men', notes: 'Lavender, Iris, Cedar', personality: ['Luxurious', 'Formal', 'Mysterious'], vibe: 'Powdery & Elegant' }
+        { id: 'homme', name: 'Homme', inspiration: 'Dior Homme Intense', price: 2900, gender: 'Men', notes: 'Lavender, Iris, Cedar', personality: ['Luxurious', 'Formal', 'Mysterious'], vibe: 'Powdery & Elegant' },
+        { id: 'auraoud', name: 'Aura Oud', inspiration: 'Ameer Al Oud', price: 2980, gender: 'Unisex', notes: 'Wood Notes, Agarwood, Vanilla, Sugar, Sandalwood, Herbal Notes', personality: ['Luxurious', 'Formal', 'Mysterious', 'Sweet', 'Bold'], vibe: 'Amber & Woody' }
     ];
 
     // --- 2. NLP CLASSIFIER (Naive Bayes Simulation) ---
@@ -91,7 +91,7 @@
                 return "Our most affordable options are **BLOOM** (₨ 1,970) and **OCEAN** (₨ 1,970). Most of our core collection is priced around ₨ 2,400 to ₨ 2,700.";
 
             case 'price_high':
-                return "Our premium selection includes **AQUA** (₨ 3,250), **BLUE** (₨ 2,900), and **HOMME** (₨ 2,900). These use our highest quality imported oils.";
+                return "Our premium selection includes **BLUE** (₨ 2,900), **HOMME** (₨ 2,900), and **AURA OUD** (₨ 2,980). These use our highest quality imported oils.";
 
             case 'shipping':
                 return "We ship nationwide! The delivery charges are only **₨ 200** for all orders across Pakistan.";
@@ -104,7 +104,7 @@
                 return handlePersonalityMatch(text);
 
             case 'recommendation':
-                return "I recommend starting with our bestsellers: **LEGACY** (Bold Night Scent) or **AQUA** (Fresh Office Scent). If you tell me your budget or your favorite scent notes (like citrus or woody), I can be more specific!";
+                return "I recommend starting with our bestsellers: **LEGACY** (Bold Night Scent) or **PRIME** (Fresh Office Scent). If you tell me your budget or your favorite scent notes (like citrus or woody), I can be more specific!";
 
             case 'gender_men':
                 return "For men, our bestsellers are **LEGACY** (Bold & Spicy) and **PRIME** (Modern & Versatile). Would you like something for the office or a night out?";
@@ -113,7 +113,7 @@
                 return "For ladies, **BLOOM** is incredibly popular for its floral sweetness, and **BLUE** is perfect for an elegant, chic vibe.";
 
             case 'longevity':
-                return "All our perfumes are EDP concentration. For extreme longevity (+8 hours), I highly recommend **HOMME** and **INTENSE**.";
+                return "All our perfumes are EDP concentration. For extreme longevity (+8 hours), I highly recommend **HOMME**, **AURA OUD**, and **INTENSE**.";
 
             case 'return':
                 return "We have a 7-day hassle-free return policy if the product is unused. We want you to be 100% happy with your scent!";
@@ -137,7 +137,7 @@
 
     function handlePersonalityMatch(text) {
         if (text.includes('office') || text.includes('work') || text.includes('professional')) {
-            return "For a professional office environment, **AQUA** and **PRIME** are perfect. they are clean, confident, and not overpowering.";
+            return "For a professional office environment, **PRIME** is perfect. It is clean, confident, and not overpowering.";
         }
         if (text.includes('party') || text.includes('night') || text.includes('bold')) {
             return "Going to a party? You need **LEGACY** or **INTENSE**. These are bold, addictive, and will definitely get you noticed!";
@@ -149,7 +149,7 @@
             return "As a gift, **7ONE** and **LEGENDARY** are safe bets because they are Unisex and loved by almost everyone!";
         }
         if (text.includes('summer') || text.includes('hot') || text.includes('fresh')) {
-            return "For hot weather, stay fresh with **AQUA**, **OCEAN**, or **7ONE**. They have amazing aquatic and citrus notes.";
+            return "For hot weather, stay fresh with **OCEAN** or **7ONE**. They have amazing aquatic and citrus notes.";
         }
 
         return "Tell me a bit more! Is this for a specific event (like a wedding or work) or a gift for someone special?";
