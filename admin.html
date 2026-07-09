@@ -573,16 +573,9 @@
                 const tr = document.createElement('tr');
                 const dateString = order.Date ? new Date(order.Date).toLocaleDateString('en-GB') : "N/A";
 
-                // Extract name and actual address (separated by " | ")
-                let name = "N/A";
-                let displayAddress = order.Address || "";
-                if (displayAddress.includes(" | ")) {
-                    const parts = displayAddress.split(" | ");
-                    name = parts[0];
-                    displayAddress = parts[1];
-                } else if (order.Phone) {
-                    name = "Guest User";
-                }
+                // Read name directly from the Name column
+                const name = order.Name || "Guest User";
+                const displayAddress = order.Address || "";
 
                 // If on Pending tab, show Accept/Reject. Otherwise, just show map if location exists.
                 let actionsHTML = "";

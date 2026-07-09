@@ -301,9 +301,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         action: "add",
+                        name: name,
                         orderId: orderId,
                         phone: phone,
-                        address: name ? `${name} | ${address}${postal ? ` (Postal: ${postal})` : ""}` : `${address}${postal ? ` (Postal: ${postal})` : ""}`,
+                        address: address + (postal ? ` (Postal: ${postal})` : ""),
                         items: itemsString,
                         total: finalPrice,
                         location: location
