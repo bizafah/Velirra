@@ -250,6 +250,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (checkoutForm) {
+        // Dynamically inject Full Name input field into checkout form
+        if (!document.getElementById('checkout-name')) {
+            const nameGroup = document.createElement('div');
+            nameGroup.className = 'form-group';
+            nameGroup.innerHTML = `
+                <label>Full Name *</label>
+                <input type="text" id="checkout-name" placeholder="e.g. Ali Khan" required>
+            `;
+            checkoutForm.insertBefore(nameGroup, checkoutForm.firstChild);
+        }
+
         checkoutForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
@@ -259,6 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             confirmBtn.textContent = "CONFIRMING ORDER...";
 
             // Get Delivery Details
+            const name = document.getElementById('checkout-name') ? document.getElementById('checkout-name').value.trim() : "";
             const phone = document.getElementById('checkout-phone').value;
             const address = document.getElementById('checkout-address').value;
             const postal = document.getElementById('checkout-postal').value;
@@ -291,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         action: "add",
                         orderId: orderId,
                         phone: phone,
-                        address: address + (postal ? ` (Postal: ${postal})` : ""),
+                        address: name ? `${name} | ${address}${postal ? ` (Postal: ${postal})` : ""}` : `${address}${postal ? ` (Postal: ${postal})` : ""}`,
                         items: itemsString,
                         total: finalPrice,
                         location: location
