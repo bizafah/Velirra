@@ -279,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // --- SAVE TO GOOGLE SHEETS ---
-            const scriptURL = "https://script.google.com/macros/s/AKfycbzBGcBuTgUaQXuZkRUQ0WwdCbcnp_raWDMpaYL4XEqmk2UfJlX8uYQsQayf2R_NhVHueA/exec";
+            const scriptURL = "https://script.google.com/macros/s/AKfycbyMHahmLNazVAyilskcZKf6Isit1TP6CEhpWlXiXxAMJiERCnETSmETh3ajFZSLCww5Rg/exec";
 
             try {
                 await fetch(scriptURL, {
