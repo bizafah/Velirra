@@ -6,16 +6,16 @@
 (function () {
     // --- 1. PRODUCT DATABASE ---
     const PRODUCTS = [
-        { id: 'legacy', name: 'Legacy', inspiration: 'Azzaro The Most Wanted', price: 2700, gender: 'Men', notes: 'Cardamom, Ginger, Lemon', personality: ['Bold', 'Confident', 'Night'], vibe: 'Warm & Spicy' },
-        { id: 'classic', name: 'Classic', inspiration: 'Dolce & Gabbana Pour Homme', price: 2700, gender: 'Men', notes: 'Citrus, Herbs, Tobacco', personality: ['Elegant', 'Traditional', 'Mature'], vibe: 'Herbal & Woody' },
-        { id: '7one', name: '7ONE', inspiration: 'Invictus Legend', price: 2400, gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood', personality: ['Energetic', 'Sporty', 'Active'], vibe: 'Fresh & Aquatic' },
-        { id: 'bloom', name: 'Bloom', inspiration: 'VS Bombshell', price: 1970, gender: 'Women', notes: 'Passionfruit, Peony, Musk', personality: ['Sweet', 'Romantic', 'Youthful'], vibe: 'Floral & Fruity' },
-        { id: 'legendary', name: 'Legendary', inspiration: '1 Million Lucky', price: 2300, gender: 'Unisex', notes: 'Plum, Hazelnut, Amber', personality: ['Charismatic', 'Playful', 'Sweet'], vibe: 'Gourmand' },
-        { id: 'intense', name: 'Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2550, gender: 'Unisex', notes: 'Raspberry, Leather, Amber', personality: ['Rebellious', 'Sophisticated', 'Bold'], vibe: 'Leather & Suede' },
-        { id: 'prime', name: 'Prime', inspiration: 'Bleu de Chanel', price: 2450, gender: 'Men', notes: 'Citrus, Spices, Siky Notes', personality: ['Modern', 'Versatile', 'Professional'], vibe: 'Woody & Aromatic' },
-        { id: 'blue', name: 'Blue', inspiration: 'Light Blue D&G', price: 2900, gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper', personality: ['Chic', 'Summer', 'Romantic'], vibe: 'Citrus & Floral' },
-        { id: 'homme', name: 'Homme', inspiration: 'Dior Homme Intense', price: 2900, gender: 'Men', notes: 'Lavender, Iris, Cedar', personality: ['Luxurious', 'Formal', 'Mysterious'], vibe: 'Powdery & Elegant' },
-        { id: 'auraoud', name: 'Aura Oud', inspiration: 'Ameer Al Oud', price: 2980, gender: 'Unisex', notes: 'Wood Notes, Agarwood, Vanilla, Sugar, Sandalwood, Herbal Notes', personality: ['Luxurious', 'Formal', 'Mysterious', 'Sweet', 'Bold'], vibe: 'Amber & Woody' }
+        { id: 'legacy', name: 'Legacy', inspiration: 'Azzaro The Most Wanted', price: 2399, gender: 'Men', notes: 'Cardamom, Ginger, Lemon', personality: ['Bold', 'Confident', 'Night'], vibe: 'Warm & Spicy' },
+        { id: 'classic', name: 'Classic', inspiration: 'Dolce & Gabbana Pour Homme', price: 1699, gender: 'Men', notes: 'Citrus, Herbs, Tobacco', personality: ['Elegant', 'Traditional', 'Mature'], vibe: 'Herbal & Woody' },
+        { id: '7one', name: '7ONE', inspiration: 'Invictus Legend', price: 1699, gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood', personality: ['Energetic', 'Sporty', 'Active'], vibe: 'Fresh & Aquatic' },
+        { id: 'bloom', name: 'Bloom', inspiration: 'VS Bombshell', price: 1499, gender: 'Women', notes: 'Passionfruit, Peony, Musk', personality: ['Sweet', 'Romantic', 'Youthful'], vibe: 'Floral & Fruity' },
+        { id: 'legendary', name: 'Legendary', inspiration: '1 Million Lucky', price: 1999, gender: 'Unisex', notes: 'Plum, Hazelnut, Amber', personality: ['Charismatic', 'Playful', 'Sweet'], vibe: 'Gourmand' },
+        { id: 'intense', name: 'Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2099, gender: 'Unisex', notes: 'Raspberry, Leather, Amber', personality: ['Rebellious', 'Sophisticated', 'Bold'], vibe: 'Leather & Suede' },
+        { id: 'prime', name: 'Prime', inspiration: 'Bleu de Chanel', price: 1899, gender: 'Men', notes: 'Citrus, Spices, Siky Notes', personality: ['Modern', 'Versatile', 'Professional'], vibe: 'Woody & Aromatic' },
+        { id: 'blue', name: 'Blue', inspiration: 'Light Blue D&G', price: 1899, gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper', personality: ['Chic', 'Summer', 'Romantic'], vibe: 'Citrus & Floral' },
+        { id: 'homme', name: 'Homme', inspiration: 'Dior Homme Intense', price: 1899, gender: 'Men', notes: 'Lavender, Iris, Cedar', personality: ['Luxurious', 'Formal', 'Mysterious'], vibe: 'Powdery & Elegant' },
+        { id: 'auraoud', name: 'Aura Oud', inspiration: 'Ameer Al Oud', price: 2160, gender: 'Unisex', notes: 'Wood Notes, Agarwood, Vanilla, Sugar, Sandalwood, Herbal Notes', personality: ['Luxurious', 'Formal', 'Mysterious', 'Sweet', 'Bold'], vibe: 'Amber & Woody' }
     ];
 
     // --- 2. NLP CLASSIFIER (Naive Bayes Simulation) ---
