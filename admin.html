@@ -398,6 +398,348 @@
                 justify-content: center;
             }
         }
+
+        /* ===================== QR GENERATOR STYLES ===================== */
+        .qr-page-header {
+            margin-bottom: 32px;
+        }
+        .qr-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+        .qr-title i { color: var(--primary); }
+        .qr-subtitle {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .qr-workspace {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 30px;
+            align-items: start;
+        }
+        .qr-controls {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .qr-group { display: flex; flex-direction: column; gap: 10px; }
+        .qr-label {
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .qr-label i { color: var(--primary); }
+        .qr-input {
+            width: 100%;
+            padding: 11px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+            background: var(--bg-body);
+        }
+        .qr-input:focus { border-color: var(--primary); background: white; }
+
+        /* Presets */
+        .qr-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .preset-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 30px;
+            background: white;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-muted);
+        }
+        .preset-btn:hover, .preset-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #fdf8ee;
+        }
+        .preset-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Colors */
+        .qr-color-row {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .qr-color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .qr-color-picker {
+            width: 52px;
+            height: 36px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            padding: 2px;
+            background: white;
+        }
+
+        /* Dot/Eye Style */
+        .qr-dot-styles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .dot-style-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-muted);
+        }
+        .dot-style-btn:hover, .dot-style-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #fdf8ee;
+        }
+
+        /* Logo Options */
+        .qr-logo-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .logo-opt-btn {
+            padding: 7px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: white;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--text-muted);
+        }
+        .logo-opt-btn:hover, .logo-opt-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #fdf8ee;
+        }
+
+        /* Slider */
+        .qr-slider {
+            width: 100%;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        .qr-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* Generate Button */
+        .qr-generate-btn {
+            background: linear-gradient(135deg, #c9a962, #8B6914);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-weight: 800;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+            box-shadow: 0 6px 20px rgba(201,169,98,0.35);
+            letter-spacing: 0.5px;
+        }
+        .qr-generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(201,169,98,0.45);
+        }
+
+        /* Preview Panel */
+        .qr-preview-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .qr-canvas-wrap {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+        .qr-canvas-glow {
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(201,169,98,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        #qr-canvas {
+            border-radius: 12px;
+            max-width: 100%;
+        }
+        .qr-scan-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Download Grid */
+        .qr-download-section {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+        .qr-download-section h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text-main);
+        }
+        .qr-download-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .qr-dl-card {
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .qr-dl-card:hover {
+            border-color: var(--primary);
+            background: #fdf8ee;
+            transform: translateY(-2px);
+        }
+        .qr-dl-card i {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .qr-dl-card strong {
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+        .qr-dl-card span {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Format Table */
+        .qr-format-guide {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+        .qr-format-guide h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .qr-format-guide h4 i { color: var(--primary); }
+        .format-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+        .format-table th {
+            background: var(--bg-body);
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 0.72rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .format-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+        .format-table tr:last-child td { border-bottom: none; }
+
+        @media (max-width: 1200px) {
+            .qr-workspace {
+                grid-template-columns: 1fr;
+            }
+            .qr-preview-panel {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .qr-canvas-wrap { grid-column: 1 / -1; }
+        }
+        @media (max-width: 768px) {
+            .qr-preview-panel { grid-template-columns: 1fr; }
+            .qr-download-grid { grid-template-columns: 1fr 1fr; }
+        }
+        /* ===================== END QR STYLES ===================== */
     </style>
 </head>
 
@@ -411,6 +753,7 @@
                         Orders</span></a></li>
             <li><a href="#" data-status="Rejected"><i class="fa-solid fa-circle-xmark"></i> <span>Rejected
                         Orders</span></a></li>
+            <li><a href="#" id="qr-nav-link" data-section="qr"><i class="fa-solid fa-qrcode"></i> <span>QR Generator</span></a></li>
         </ul>
         <div class="nav-links" style="margin-top: auto;">
             <a href="index.html"><i class="fa-solid fa-arrow-left"></i> <span>View Store</span></a>
@@ -459,6 +802,175 @@
                 </div>
             </div>
         </div>
+
+        <!-- QR Code Generator Section -->
+        <div id="qr-section" style="display:none;">
+            <div class="qr-page-header">
+                <div>
+                    <h2 class="qr-title"><i class="fa-solid fa-qrcode"></i> QR Code Generator</h2>
+                    <p class="qr-subtitle">Create a custom QR code for your store — print it as a sticker and let customers scan to order instantly.</p>
+                </div>
+            </div>
+
+            <div class="qr-workspace">
+                <!-- Left: Controls -->
+                <div class="qr-controls">
+
+                    <!-- URL -->
+                    <div class="qr-group">
+                        <label class="qr-label"><i class="fa-solid fa-link"></i> Website URL</label>
+                        <input type="text" id="qr-url" class="qr-input" value="https://velirra.com" placeholder="https://yourwebsite.com">
+                    </div>
+
+                    <!-- Style Preset -->
+                    <div class="qr-group">
+                        <label class="qr-label"><i class="fa-solid fa-wand-magic-sparkles"></i> Style Preset</label>
+                        <div class="qr-presets">
+                            <button class="preset-btn active" data-preset="velirra" onclick="applyPreset('velirra', this)">
+                                <span class="preset-dot" style="background: linear-gradient(135deg,#c9a962,#8B6914)"></span> Velirra Gold
+                            </button>
+                            <button class="preset-btn" data-preset="noir" onclick="applyPreset('noir', this)">
+                                <span class="preset-dot" style="background: linear-gradient(135deg,#1a1a2e,#16213e)"></span> Noir
+                            </button>
+                            <button class="preset-btn" data-preset="rose" onclick="applyPreset('rose', this)">
+                                <span class="preset-dot" style="background: linear-gradient(135deg,#f093fb,#f5576c)"></span> Rose
+                            </button>
+                            <button class="preset-btn" data-preset="ocean" onclick="applyPreset('ocean', this)">
+                                <span class="preset-dot" style="background: linear-gradient(135deg,#667eea,#764ba2)"></span> Ocean
+                            </button>
+                            <button class="preset-btn" data-preset="custom" onclick="applyPreset('custom', this)">
+                                <span class="preset-dot" style="background: conic-gradient(red,yellow,green,blue,red)"></span> Custom
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Color Options -->
+                    <div class="qr-group" id="custom-colors">
+                        <label class="qr-label"><i class="fa-solid fa-palette"></i> Colors</label>
+                        <div class="qr-color-row">
+                            <div class="qr-color-item">
+                                <label>Dot Color 1</label>
+                                <input type="color" id="qr-color1" value="#c9a962" class="qr-color-picker" onchange="generateQR()">
+                            </div>
+                            <div class="qr-color-item">
+                                <label>Dot Color 2</label>
+                                <input type="color" id="qr-color2" value="#8B6914" class="qr-color-picker" onchange="generateQR()">
+                            </div>
+                            <div class="qr-color-item">
+                                <label>Background</label>
+                                <input type="color" id="qr-bgcolor" value="#ffffff" class="qr-color-picker" onchange="generateQR()">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dot Style -->
+                    <div class="qr-group">
+                        <label class="qr-label"><i class="fa-solid fa-shapes"></i> Dot Style</label>
+                        <div class="qr-dot-styles">
+                            <button class="dot-style-btn active" data-style="rounded" onclick="setDotStyle('rounded', this)"><i class="fa-solid fa-circle"></i> Rounded</button>
+                            <button class="dot-style-btn" data-style="square" onclick="setDotStyle('square', this)"><i class="fa-solid fa-square"></i> Square</button>
+                            <button class="dot-style-btn" data-style="dots" onclick="setDotStyle('dots', this)"><i class="fa-solid fa-ellipsis"></i> Dots</button>
+                            <button class="dot-style-btn" data-style="classy" onclick="setDotStyle('classy', this)"><i class="fa-solid fa-diamond"></i> Classy</button>
+                        </div>
+                    </div>
+
+                    <!-- Eye (Corner) Style -->
+                    <div class="qr-group">
+                        <label class="qr-label"><i class="fa-solid fa-eye"></i> Corner Eye Style</label>
+                        <div class="qr-dot-styles">
+                            <button class="dot-style-btn active" data-eye="square" onclick="setEyeStyle('square', this)"><i class="fa-solid fa-square"></i> Square</button>
+                            <button class="dot-style-btn" data-eye="rounded" onclick="setEyeStyle('rounded', this)"><i class="fa-regular fa-circle"></i> Rounded</button>
+                            <button class="dot-style-btn" data-eye="dot" onclick="setEyeStyle('dot', this)"><i class="fa-solid fa-circle"></i> Dot</button>
+                        </div>
+                    </div>
+
+                    <!-- Center Logo/Icon -->
+                    <div class="qr-group">
+                        <label class="qr-label"><i class="fa-solid fa-image"></i> Center Logo / Icon</label>
+                        <div class="qr-logo-options">
+                            <button class="logo-opt-btn active" onclick="setLogoMode('none', this)">None</button>
+                            <button class="logo-opt-btn" onclick="setLogoMode('velirra-text', this)">Velirra V</button>
+                            <button class="logo-opt-btn" onclick="setLogoMode('perfume', this)">🌸 Floral</button>
+                            <button class="logo-opt-btn" onclick="setLogoMode('upload', this)">Upload Image</button>
+                        </div>
+                        <input type="file" id="qr-logo-upload" accept="image/*" style="display:none" onchange="handleLogoUpload(event)">
+                        <p class="qr-hint">A center logo reduces scan distance slightly — keep it under 30% of QR size.</p>
+                    </div>
+
+                    <!-- Size -->
+                    <div class="qr-group">
+                        <label class="qr-label"><i class="fa-solid fa-expand"></i> Size: <span id="qr-size-val">300</span>px</label>
+                        <input type="range" id="qr-size" min="200" max="1000" value="300" class="qr-slider" oninput="document.getElementById('qr-size-val').textContent=this.value; generateQR()">
+                    </div>
+
+                    <!-- Error Correction -->
+                    <div class="qr-group">
+                        <label class="qr-label"><i class="fa-solid fa-shield-halved"></i> Error Correction Level</label>
+                        <select id="qr-ecl" class="qr-input" onchange="generateQR()">
+                            <option value="M">M — Medium (15%) · Standard use</option>
+                            <option value="H" selected>H — High (30%) · Required for logo overlay</option>
+                            <option value="L">L — Low (7%) · Cleanest look, no logo</option>
+                            <option value="Q">Q — Quartile (25%) · Good balance</option>
+                        </select>
+                    </div>
+
+                    <!-- Generate Button -->
+                    <button class="qr-generate-btn" onclick="generateQR()">
+                        <i class="fa-solid fa-bolt"></i> Generate QR Code
+                    </button>
+                </div>
+
+                <!-- Right: Preview + Download -->
+                <div class="qr-preview-panel">
+                    <div class="qr-canvas-wrap">
+                        <div class="qr-canvas-glow"></div>
+                        <canvas id="qr-canvas"></canvas>
+                        <p class="qr-scan-label">Scan to visit Velirra</p>
+                    </div>
+
+                    <div class="qr-download-section">
+                        <h4>Download As</h4>
+                        <div class="qr-download-grid">
+                            <div class="qr-dl-card" onclick="downloadQR('png')">
+                                <i class="fa-solid fa-file-image"></i>
+                                <strong>PNG</strong>
+                                <span>Best for stickers, digital use, transparent BG support</span>
+                            </div>
+                            <div class="qr-dl-card" onclick="downloadQR('jpeg')">
+                                <i class="fa-solid fa-file-image" style="color:#f59e0b"></i>
+                                <strong>JPEG / JPG</strong>
+                                <span>Best for printing, WhatsApp sharing, no transparency</span>
+                            </div>
+                            <div class="qr-dl-card" onclick="downloadQR('svg')">
+                                <i class="fa-solid fa-file-code" style="color:#6366f1"></i>
+                                <strong>SVG</strong>
+                                <span>Best for large format prints, banners, infinitely scalable</span>
+                            </div>
+                            <div class="qr-dl-card" onclick="downloadQR('webp')">
+                                <i class="fa-solid fa-file-image" style="color:#10b981"></i>
+                                <strong>WEBP</strong>
+                                <span>Best for websites, smallest file size with great quality</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Format guide -->
+                    <div class="qr-format-guide">
+                        <h4><i class="fa-solid fa-circle-info"></i> When to use which format</h4>
+                        <table class="format-table">
+                            <thead><tr><th>Format</th><th>Use When</th><th>Transparent BG?</th></tr></thead>
+                            <tbody>
+                                <tr><td><strong>PNG</strong></td><td>Stickers, digital posts, website embed</td><td>✅ Yes</td></tr>
+                                <tr><td><strong>JPEG/JPG</strong></td><td>Printing on paper, flyers, WhatsApp</td><td>❌ No</td></tr>
+                                <tr><td><strong>SVG</strong></td><td>Large banners, signage, professional print</td><td>✅ Yes</td></tr>
+                                <tr><td><strong>WEBP</strong></td><td>Website use, email campaigns, fast loading</td><td>✅ Yes</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End QR Section -->
 
         <div class="card">
             <div class="card-header">
@@ -662,30 +1174,326 @@
             }
         }
 
-        // Setup Tab Navigation Clicking
+        // ── Section visibility helpers ──────────────────────────────────────
+        const dashboardEls = [
+            document.querySelector('header'),
+            document.querySelector('.stats-grid'),
+            document.querySelector('.card')
+        ];
+        const qrSection = document.getElementById('qr-section');
+
+        function showDashboard() {
+            dashboardEls.forEach(el => el && (el.style.display = ''));
+            qrSection.style.display = 'none';
+        }
+        function showQR() {
+            dashboardEls.forEach(el => el && (el.style.display = 'none'));
+            qrSection.style.display = 'block';
+            // Auto-generate on first open
+            if (!document.getElementById('qr-canvas').width) generateQR();
+        }
+
+        // ── Tab Navigation ──────────────────────────────────────────────────
         document.querySelectorAll('.sidebar .nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
                 const status = link.getAttribute('data-status');
-                if (!status) return; // Allow go back to store
+                const section = link.getAttribute('data-section');
+
+                // External links (View Store) — let browser handle
+                if (!status && !section) return;
 
                 e.preventDefault();
 
-                // Toggle active class
                 document.querySelectorAll('.sidebar .nav-links a').forEach(a => a.classList.remove('active'));
                 link.classList.add('active');
 
-                // Update tab status filter
+                if (section === 'qr') {
+                    showQR();
+                    return;
+                }
+
+                showDashboard();
                 currentStatusFilter = status;
 
-                // Update card header text
                 const cardHeader = document.querySelector('.card-header h3');
-                if (cardHeader) {
-                    cardHeader.textContent = `${status} Orders`;
-                }
+                if (cardHeader) cardHeader.textContent = `${status} Orders`;
 
                 renderOrders(allOrders);
             });
         });
+
+    </script>
+
+    <!-- QR Code library (qrcode-generator + canvas rendering) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        // ── QR Generator State ──────────────────────────────────────────────
+        let qrDotStyle   = 'rounded';
+        let qrEyeStyle   = 'square';
+        let qrLogoMode   = 'none';
+        let qrLogoImage  = null;   // uploaded image data URL
+
+        // ── Preset Definitions ──────────────────────────────────────────────
+        const presets = {
+            velirra : { c1: '#c9a962', c2: '#8B6914', bg: '#ffffff' },
+            noir    : { c1: '#1a1a2e', c2: '#e2e8f0', bg: '#0f0f1a' },
+            rose    : { c1: '#f093fb', c2: '#f5576c', bg: '#fff0f6' },
+            ocean   : { c1: '#667eea', c2: '#764ba2', bg: '#f0f0ff' },
+            custom  : null
+        };
+
+        function applyPreset(name, btn) {
+            document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            if (name !== 'custom' && presets[name]) {
+                const p = presets[name];
+                document.getElementById('qr-color1').value  = p.c1;
+                document.getElementById('qr-color2').value  = p.c2;
+                document.getElementById('qr-bgcolor').value = p.bg;
+            }
+            generateQR();
+        }
+
+        function setDotStyle(style, btn) {
+            document.querySelectorAll('[data-style]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            qrDotStyle = style;
+            generateQR();
+        }
+
+        function setEyeStyle(style, btn) {
+            document.querySelectorAll('[data-eye]').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            qrEyeStyle = style;
+            generateQR();
+        }
+
+        function setLogoMode(mode, btn) {
+            document.querySelectorAll('.logo-opt-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            qrLogoMode = mode;
+            if (mode === 'upload') {
+                document.getElementById('qr-logo-upload').click();
+            } else {
+                generateQR();
+            }
+        }
+
+        function handleLogoUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                qrLogoImage = ev.target.result;
+                generateQR();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // ── Core QR Generator ───────────────────────────────────────────────
+        function generateQR() {
+            const url    = document.getElementById('qr-url').value.trim() || 'https://velirra.com';
+            const size   = parseInt(document.getElementById('qr-size').value);
+            const ecl    = document.getElementById('qr-ecl').value;
+            const color1 = document.getElementById('qr-color1').value;
+            const color2 = document.getElementById('qr-color2').value;
+            const bgCol  = document.getElementById('qr-bgcolor').value;
+
+            // Use qrcode-generator to get the module matrix
+            const typeNumber = 0; // auto-detect
+            const qr = qrcode(typeNumber, ecl);
+            qr.addData(url);
+            qr.make();
+
+            const canvas  = document.getElementById('qr-canvas');
+            canvas.width  = size;
+            canvas.height = size;
+            const ctx     = canvas.getContext('2d');
+            const count   = qr.getModuleCount();
+            const margin  = Math.round(size * 0.04);
+            const cellSz  = (size - margin * 2) / count;
+
+            // Background
+            ctx.fillStyle = bgCol;
+            ctx.fillRect(0, 0, size, size);
+
+            // Gradient for dot fill
+            const grad = ctx.createLinearGradient(0, 0, size, size);
+            grad.addColorStop(0, color1);
+            grad.addColorStop(1, color2);
+
+            // Identify eye (finder pattern) cells — top-left, top-right, bottom-left
+            function isEyeCell(row, col) {
+                const last = count - 7;
+                return (row < 7 && col < 7) ||
+                       (row < 7 && col >= last) ||
+                       (row >= last && col < 7);
+            }
+
+            for (let r = 0; r < count; r++) {
+                for (let c = 0; c < count; c++) {
+                    if (!qr.isDark(r, c)) continue;
+
+                    const x = margin + c * cellSz;
+                    const y = margin + r * cellSz;
+                    const s = cellSz * 0.92;
+                    const gap = (cellSz - s) / 2;
+
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+
+                    const eye = isEyeCell(r, c);
+                    const style = eye ? qrEyeStyle : qrDotStyle;
+
+                    if (style === 'square') {
+                        ctx.rect(x + gap, y + gap, s, s);
+                    } else if (style === 'dots') {
+                        const r2 = s / 2;
+                        ctx.arc(x + gap + r2, y + gap + r2, r2, 0, Math.PI * 2);
+                    } else if (style === 'classy') {
+                        // Small rotated square (diamond-ish)
+                        const cx = x + cellSz / 2, cy = y + cellSz / 2, hs = s * 0.48;
+                        ctx.moveTo(cx, cy - hs);
+                        ctx.lineTo(cx + hs, cy);
+                        ctx.lineTo(cx, cy + hs);
+                        ctx.lineTo(cx - hs, cy);
+                        ctx.closePath();
+                    } else {
+                        // rounded (default)
+                        const rad = s * 0.35;
+                        ctx.roundRect(x + gap, y + gap, s, s, rad);
+                    }
+                    ctx.fill();
+                }
+            }
+
+            // Center logo overlay
+            if (qrLogoMode !== 'none') {
+                const logoSize = size * 0.22;
+                const lx = (size - logoSize) / 2;
+                const ly = (size - logoSize) / 2;
+
+                // White backing circle
+                ctx.fillStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.roundRect(lx - 6, ly - 6, logoSize + 12, logoSize + 12, 12);
+                ctx.fill();
+
+                if (qrLogoMode === 'velirra-text') {
+                    // Draw stylised "V" in gold
+                    ctx.fillStyle = color1;
+                    ctx.font = `bold ${logoSize * 0.85}px "Plus Jakarta Sans", sans-serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('V', size / 2, size / 2);
+                } else if (qrLogoMode === 'perfume') {
+                    ctx.font = `${logoSize * 0.85}px serif`;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('🌸', size / 2, size / 2);
+                } else if (qrLogoMode === 'upload' && qrLogoImage) {
+                    const img = new Image();
+                    img.onload = () => {
+                        ctx.save();
+                        ctx.beginPath();
+                        ctx.roundRect(lx, ly, logoSize, logoSize, 10);
+                        ctx.clip();
+                        ctx.drawImage(img, lx, ly, logoSize, logoSize);
+                        ctx.restore();
+                    };
+                    img.src = qrLogoImage;
+                }
+            }
+        }
+
+        // ── Download ────────────────────────────────────────────────────────
+        function downloadQR(format) {
+            const canvas = document.getElementById('qr-canvas');
+            if (!canvas.width) { alert('Generate a QR code first!'); return; }
+
+            if (format === 'svg') {
+                downloadAsSVG();
+                return;
+            }
+
+            const mimeMap = { png: 'image/png', jpeg: 'image/jpeg', jpg: 'image/jpeg', webp: 'image/webp' };
+            const mime    = mimeMap[format] || 'image/png';
+            const quality = (format === 'jpeg' || format === 'jpg') ? 0.95 : undefined;
+
+            // For JPEG, draw onto a white-background canvas first
+            let exportCanvas = canvas;
+            if (format === 'jpeg' || format === 'jpg') {
+                exportCanvas = document.createElement('canvas');
+                exportCanvas.width  = canvas.width;
+                exportCanvas.height = canvas.height;
+                const ectx = exportCanvas.getContext('2d');
+                ectx.fillStyle = '#ffffff';
+                ectx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+                ectx.drawImage(canvas, 0, 0);
+            }
+
+            const dataURL = exportCanvas.toDataURL(mime, quality);
+            const a = document.createElement('a');
+            a.href     = dataURL;
+            a.download = `velirra-qr.${format}`;
+            a.click();
+        }
+
+        function downloadAsSVG() {
+            const url    = document.getElementById('qr-url').value.trim() || 'https://velirra.com';
+            const ecl    = document.getElementById('qr-ecl').value;
+            const color1 = document.getElementById('qr-color1').value;
+            const bgCol  = document.getElementById('qr-bgcolor').value;
+            const size   = 500;
+
+            const qr = qrcode(0, ecl);
+            qr.addData(url);
+            qr.make();
+
+            const count  = qr.getModuleCount();
+            const margin = 20;
+            const cell   = (size - margin * 2) / count;
+
+            let rects = '';
+            for (let r = 0; r < count; r++) {
+                for (let c = 0; c < count; c++) {
+                    if (qr.isDark(r, c)) {
+                        const x = margin + c * cell;
+                        const y = margin + r * cell;
+                        const s = cell * 0.92;
+                        const rad = qrDotStyle === 'square' ? 0 : cell * 0.3;
+                        rects += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${s.toFixed(1)}" height="${s.toFixed(1)}" rx="${rad.toFixed(1)}" fill="${color1}"/>`;
+                    }
+                }
+            }
+
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
+  <rect width="${size}" height="${size}" fill="${bgCol}"/>
+  ${rects}
+</svg>`;
+
+            const blob = new Blob([svg], { type: 'image/svg+xml' });
+            const a = document.createElement('a');
+            a.href     = URL.createObjectURL(blob);
+            a.download = 'velirra-qr.svg';
+            a.click();
+            URL.revokeObjectURL(a.href);
+        }
+
+        // Polyfill roundRect for older browsers
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+                if (w < 2 * r) r = w / 2;
+                if (h < 2 * r) r = h / 2;
+                this.moveTo(x + r, y);
+                this.arcTo(x + w, y,     x + w, y + h, r);
+                this.arcTo(x + w, y + h, x,     y + h, r);
+                this.arcTo(x,     y + h, x,     y,     r);
+                this.arcTo(x,     y,     x + w, y,     r);
+                this.closePath();
+                return this;
+            };
+        }
     </script>
 </body>
 
