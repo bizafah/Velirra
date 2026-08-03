@@ -1224,14 +1224,28 @@
 
     </script>
 
-    <!-- QR Code library (qrcode-generator + canvas rendering) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- QR Code library: qrcode-generator (exposes global `qrcode` function) -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
     <script>
+        // ── roundRect polyfill (must be before generateQR is called) ────────
+        if (!CanvasRenderingContext2D.prototype.roundRect) {
+            CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
+                r = Math.min(r, w / 2, h / 2);
+                this.moveTo(x + r, y);
+                this.arcTo(x + w, y,     x + w, y + h, r);
+                this.arcTo(x + w, y + h, x,     y + h, r);
+                this.arcTo(x,     y + h, x,     y,     r);
+                this.arcTo(x,     y,     x + w, y,     r);
+                this.closePath();
+                return this;
+            };
+        }
+
         // ── QR Generator State ──────────────────────────────────────────────
-        let qrDotStyle   = 'rounded';
-        let qrEyeStyle   = 'square';
-        let qrLogoMode   = 'none';
-        let qrLogoImage  = null;   // uploaded image data URL
+        let qrDotStyle  = 'rounded';
+        let qrEyeStyle  = 'square';
+        let qrLogoMode  = 'none';
+        let qrLogoImage = null;
 
         // ── Preset Definitions ──────────────────────────────────────────────
         const presets = {
@@ -1292,37 +1306,44 @@
 
         // ── Core QR Generator ───────────────────────────────────────────────
         function generateQR() {
-            const url    = document.getElementById('qr-url').value.trim() || 'https://velirra.com';
-            const size   = parseInt(document.getElementById('qr-size').value);
+            const url    = (document.getElementById('qr-url').value || '').trim() || 'https://velirra.com';
+            const size   = parseInt(document.getElementById('qr-size').value) || 300;
             const ecl    = document.getElementById('qr-ecl').value;
             const color1 = document.getElementById('qr-color1').value;
             const color2 = document.getElementById('qr-color2').value;
             const bgCol  = document.getElementById('qr-bgcolor').value;
 
-            // Use qrcode-generator to get the module matrix
-            const typeNumber = 0; // auto-detect
-            const qr = qrcode(typeNumber, ecl);
-            qr.addData(url);
-            qr.make();
+            // Build QR matrix via qrcode-generator
+            let qr;
+            try {
+                qr = qrcode(0, ecl);
+                qr.addData(url);
+                qr.make();
+            } catch (err) {
+                console.error('QR generation error:', err);
+                alert('Could not generate QR code. Try a shorter URL or lower error correction.');
+                return;
+            }
 
             const canvas  = document.getElementById('qr-canvas');
             canvas.width  = size;
             canvas.height = size;
             const ctx     = canvas.getContext('2d');
             const count   = qr.getModuleCount();
-            const margin  = Math.round(size * 0.04);
+            const margin  = Math.round(size * 0.05);
             const cellSz  = (size - margin * 2) / count;
 
             // Background
+            ctx.clearRect(0, 0, size, size);
             ctx.fillStyle = bgCol;
             ctx.fillRect(0, 0, size, size);
 
-            // Gradient for dot fill
+            // Diagonal gradient across the whole QR
             const grad = ctx.createLinearGradient(0, 0, size, size);
             grad.addColorStop(0, color1);
             grad.addColorStop(1, color2);
 
-            // Identify eye (finder pattern) cells — top-left, top-right, bottom-left
+            // Finder pattern (eye) cell detection
             function isEyeCell(row, col) {
                 const last = count - 7;
                 return (row < 7 && col < 7) ||
@@ -1330,117 +1351,123 @@
                        (row >= last && col < 7);
             }
 
-            for (let r = 0; r < count; r++) {
-                for (let c = 0; c < count; c++) {
-                    if (!qr.isDark(r, c)) continue;
+            for (let row = 0; row < count; row++) {
+                for (let col = 0; col < count; col++) {
+                    if (!qr.isDark(row, col)) continue;
 
-                    const x = margin + c * cellSz;
-                    const y = margin + r * cellSz;
-                    const s = cellSz * 0.92;
-                    const gap = (cellSz - s) / 2;
+                    const x   = margin + col * cellSz;
+                    const y   = margin + row * cellSz;
+                    const s   = cellSz * 0.88;
+                    const pad = (cellSz - s) / 2;
 
                     ctx.fillStyle = grad;
                     ctx.beginPath();
 
-                    const eye = isEyeCell(r, c);
-                    const style = eye ? qrEyeStyle : qrDotStyle;
+                    const useEye  = isEyeCell(row, col);
+                    const style   = useEye ? qrEyeStyle : qrDotStyle;
 
-                    if (style === 'square') {
-                        ctx.rect(x + gap, y + gap, s, s);
-                    } else if (style === 'dots') {
-                        const r2 = s / 2;
-                        ctx.arc(x + gap + r2, y + gap + r2, r2, 0, Math.PI * 2);
-                    } else if (style === 'classy') {
-                        // Small rotated square (diamond-ish)
-                        const cx = x + cellSz / 2, cy = y + cellSz / 2, hs = s * 0.48;
-                        ctx.moveTo(cx, cy - hs);
-                        ctx.lineTo(cx + hs, cy);
-                        ctx.lineTo(cx, cy + hs);
-                        ctx.lineTo(cx - hs, cy);
-                        ctx.closePath();
-                    } else {
-                        // rounded (default)
-                        const rad = s * 0.35;
-                        ctx.roundRect(x + gap, y + gap, s, s, rad);
+                    switch (style) {
+                        case 'square':
+                            ctx.rect(x + pad, y + pad, s, s);
+                            break;
+                        case 'dots':
+                            ctx.arc(x + cellSz / 2, y + cellSz / 2, s / 2, 0, Math.PI * 2);
+                            break;
+                        case 'classy': {
+                            const cx = x + cellSz / 2, cy = y + cellSz / 2, hs = s * 0.46;
+                            ctx.moveTo(cx, cy - hs);
+                            ctx.lineTo(cx + hs, cy);
+                            ctx.lineTo(cx, cy + hs);
+                            ctx.lineTo(cx - hs, cy);
+                            ctx.closePath();
+                            break;
+                        }
+                        default: // rounded
+                            ctx.roundRect(x + pad, y + pad, s, s, s * 0.32);
                     }
                     ctx.fill();
                 }
             }
 
             // Center logo overlay
-            if (qrLogoMode !== 'none') {
-                const logoSize = size * 0.22;
-                const lx = (size - logoSize) / 2;
-                const ly = (size - logoSize) / 2;
+            drawLogo(ctx, size, color1, qrLogoMode, qrLogoImage);
+        }
 
-                // White backing circle
-                ctx.fillStyle = '#ffffff';
-                ctx.beginPath();
-                ctx.roundRect(lx - 6, ly - 6, logoSize + 12, logoSize + 12, 12);
-                ctx.fill();
+        function drawLogo(ctx, size, color1, mode, uploadedImg) {
+            if (mode === 'none') return;
 
-                if (qrLogoMode === 'velirra-text') {
-                    // Draw stylised "V" in gold
-                    ctx.fillStyle = color1;
-                    ctx.font = `bold ${logoSize * 0.85}px "Plus Jakarta Sans", sans-serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText('V', size / 2, size / 2);
-                } else if (qrLogoMode === 'perfume') {
-                    ctx.font = `${logoSize * 0.85}px serif`;
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillText('🌸', size / 2, size / 2);
-                } else if (qrLogoMode === 'upload' && qrLogoImage) {
-                    const img = new Image();
-                    img.onload = () => {
-                        ctx.save();
-                        ctx.beginPath();
-                        ctx.roundRect(lx, ly, logoSize, logoSize, 10);
-                        ctx.clip();
-                        ctx.drawImage(img, lx, ly, logoSize, logoSize);
-                        ctx.restore();
-                    };
-                    img.src = qrLogoImage;
-                }
+            const logoSize = size * 0.22;
+            const lx = (size - logoSize) / 2;
+            const ly = (size - logoSize) / 2;
+
+            // White rounded backing
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.roundRect(lx - 8, ly - 8, logoSize + 16, logoSize + 16, 14);
+            ctx.fill();
+
+            if (mode === 'velirra-text') {
+                ctx.fillStyle = color1;
+                ctx.font = `bold ${Math.round(logoSize * 0.85)}px "Plus Jakarta Sans", sans-serif`;
+                ctx.textAlign    = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('V', size / 2, size / 2);
+
+            } else if (mode === 'perfume') {
+                ctx.font         = `${Math.round(logoSize * 0.82)}px serif`;
+                ctx.textAlign    = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('🌸', size / 2, size / 2);
+
+            } else if (mode === 'upload' && uploadedImg) {
+                const img  = new Image();
+                img.onload = () => {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.roundRect(lx, ly, logoSize, logoSize, 10);
+                    ctx.clip();
+                    ctx.drawImage(img, lx, ly, logoSize, logoSize);
+                    ctx.restore();
+                };
+                img.src = uploadedImg;
             }
         }
 
         // ── Download ────────────────────────────────────────────────────────
         function downloadQR(format) {
             const canvas = document.getElementById('qr-canvas');
-            if (!canvas.width) { alert('Generate a QR code first!'); return; }
-
-            if (format === 'svg') {
-                downloadAsSVG();
+            if (!canvas.width || !canvas.height) {
+                alert('Generate a QR code first!');
                 return;
             }
 
+            if (format === 'svg') { downloadAsSVG(); return; }
+
             const mimeMap = { png: 'image/png', jpeg: 'image/jpeg', jpg: 'image/jpeg', webp: 'image/webp' };
             const mime    = mimeMap[format] || 'image/png';
-            const quality = (format === 'jpeg' || format === 'jpg') ? 0.95 : undefined;
 
-            // For JPEG, draw onto a white-background canvas first
             let exportCanvas = canvas;
             if (format === 'jpeg' || format === 'jpg') {
+                // JPEG needs a white BG (no alpha channel)
                 exportCanvas = document.createElement('canvas');
                 exportCanvas.width  = canvas.width;
                 exportCanvas.height = canvas.height;
-                const ectx = exportCanvas.getContext('2d');
-                ectx.fillStyle = '#ffffff';
-                ectx.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
-                ectx.drawImage(canvas, 0, 0);
+                const ec = exportCanvas.getContext('2d');
+                ec.fillStyle = '#ffffff';
+                ec.fillRect(0, 0, exportCanvas.width, exportCanvas.height);
+                ec.drawImage(canvas, 0, 0);
             }
 
-            const dataURL = exportCanvas.toDataURL(mime, quality);
             const a = document.createElement('a');
-            a.href     = dataURL;
+            a.href     = exportCanvas.toDataURL(mime, 0.95);
             a.download = `velirra-qr.${format}`;
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
         }
 
         function downloadAsSVG() {
-            const url    = document.getElementById('qr-url').value.trim() || 'https://velirra.com';
+            const url    = (document.getElementById('qr-url').value || '').trim() || 'https://velirra.com';
             const ecl    = document.getElementById('qr-ecl').value;
             const color1 = document.getElementById('qr-color1').value;
             const bgCol  = document.getElementById('qr-bgcolor').value;
@@ -1451,48 +1478,31 @@
             qr.make();
 
             const count  = qr.getModuleCount();
-            const margin = 20;
+            const margin = 25;
             const cell   = (size - margin * 2) / count;
+            const rad    = qrDotStyle === 'square' ? 0 : (cell * 0.3).toFixed(1);
 
             let rects = '';
             for (let r = 0; r < count; r++) {
                 for (let c = 0; c < count; c++) {
                     if (qr.isDark(r, c)) {
-                        const x = margin + c * cell;
-                        const y = margin + r * cell;
-                        const s = cell * 0.92;
-                        const rad = qrDotStyle === 'square' ? 0 : cell * 0.3;
-                        rects += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${s.toFixed(1)}" height="${s.toFixed(1)}" rx="${rad.toFixed(1)}" fill="${color1}"/>`;
+                        const x = (margin + c * cell).toFixed(1);
+                        const y = (margin + r * cell).toFixed(1);
+                        const s = (cell * 0.88).toFixed(1);
+                        rects += `<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="${rad}" fill="${color1}"/>\n`;
                     }
                 }
             }
 
-            const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-  <rect width="${size}" height="${size}" fill="${bgCol}"/>
-  ${rects}
-</svg>`;
-
+            const svg  = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">\n<rect width="${size}" height="${size}" fill="${bgCol}"/>\n${rects}</svg>`;
             const blob = new Blob([svg], { type: 'image/svg+xml' });
-            const a = document.createElement('a');
+            const a    = document.createElement('a');
             a.href     = URL.createObjectURL(blob);
             a.download = 'velirra-qr.svg';
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
             URL.revokeObjectURL(a.href);
-        }
-
-        // Polyfill roundRect for older browsers
-        if (!CanvasRenderingContext2D.prototype.roundRect) {
-            CanvasRenderingContext2D.prototype.roundRect = function(x, y, w, h, r) {
-                if (w < 2 * r) r = w / 2;
-                if (h < 2 * r) r = h / 2;
-                this.moveTo(x + r, y);
-                this.arcTo(x + w, y,     x + w, y + h, r);
-                this.arcTo(x + w, y + h, x,     y + h, r);
-                this.arcTo(x,     y + h, x,     y,     r);
-                this.arcTo(x,     y,     x + w, y,     r);
-                this.closePath();
-                return this;
-            };
         }
     </script>
 </body>
