@@ -337,8 +337,192 @@
                     </div>
                 </div>
             </a>
+
+            <!-- Signature Noir -->
+            <div class="product-card premium-card" data-id="sig-noir" data-category="unisex premium"
+                 style="background: #0e0e0e; border: 1px solid rgba(197,160,89,0.25);">
+                <div class="product-image">
+                    <img src="noir.jpeg" alt="Velirra Signature Noir">
+                    <div class="discount-badge"
+                        style="background: linear-gradient(135deg,#b8860b,#ffd700); color:#000;">SIGNATURE</div>
+                    <div class="product-overlay"></div>
+                    <button class="product-btn add-to-cart"
+                            data-id="sig-noir" data-name="Velirra Signature Noir" data-price="2799">Add to Cart</button>
+                </div>
+                <div class="product-info">
+                    <p class="product-category" style="color:var(--color-gold)">Woody Amber · Oud · Unisex</p>
+                    <h3 class="product-name" style="color:#fff">Velirra Signature Noir</h3>
+                    <p style="font-size:0.72rem; color:var(--color-gold); letter-spacing:0.1rem; margin-bottom:0.5rem;">
+                        Longevity: 12–24+ hrs | All Seasons</p>
+                    <div class="price-wrapper">
+                        <span class="old-price">₨ 4,500</span>
+                        <span class="product-price">₨ 2,799</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SIGNATURE NOIR — EDITORIAL SECTION
+    ═══════════════════════════════════════════════════════ -->
+    <section class="sig-noir-section">
+
+        <!-- Text-mask headline -->
+        <div class="sig-noir-headline">
+            <span class="sig-mask-text">SIGNATURE</span>
+        </div>
+
+        <div class="sig-noir-inner">
+
+            <!-- LEFT: product image -->
+            <div class="sig-noir-img-col">
+                <div class="sig-noir-img-wrap">
+                    <img src="noir.jpeg" alt="Velirra Signature Noir" class="sig-noir-img">
+                    <div class="sig-noir-badge">SIGNATURE</div>
+                </div>
+            </div>
+
+            <!-- RIGHT: details -->
+            <div class="sig-noir-details">
+
+                <p class="sig-noir-overline">✦ NEW ARRIVAL · SIGNATURE COLLECTION</p>
+                <h2 class="sig-noir-title">Velirra<br>Signature Noir</h2>
+                <p class="sig-noir-tagline">Bold. Resinous. Eternal.</p>
+
+                <p class="sig-noir-desc">
+                    A luxurious woody-amber fragrance crafted for those who appreciate depth, sophistication, and
+                    lasting elegance. Rich oud, smoky incense, warm amberwood, and subtle fruity accents create a
+                    bold yet refined composition that leaves a memorable trail from day to night.
+                </p>
+
+                <div class="sig-noir-tags">
+                    <span>Woody Amber</span><span>Oud</span><span>Smoky</span><span>Unisex</span>
+                </div>
+
+                <div class="sig-noir-notes">
+                    <div class="sig-note-row">
+                        <span class="sig-note-label">Top</span>
+                        <span class="sig-note-val">Raspberry · Smoky Incense</span>
+                    </div>
+                    <div class="sig-note-row">
+                        <span class="sig-note-label">Heart</span>
+                        <span class="sig-note-val">Natural Oud · Rose · Saffron</span>
+                    </div>
+                    <div class="sig-note-row">
+                        <span class="sig-note-label">Base</span>
+                        <span class="sig-note-val">Benzoin · Birch Smoke · Amberwood</span>
+                    </div>
+                </div>
+
+                <div class="sig-noir-perf">
+                    <div class="sig-perf-item">
+                        <span class="sig-perf-icon">⏱</span>
+                        <div>
+                            <strong>Longevity</strong>
+                            <span>12–24+ hrs on skin · 2–5 days on fabric</span>
+                        </div>
+                    </div>
+                    <div class="sig-perf-item">
+                        <span class="sig-perf-icon">✦</span>
+                        <div>
+                            <strong>Sillage</strong>
+                            <span>Excellent — rich, noticeable trail</span>
+                        </div>
+                    </div>
+                    <div class="sig-perf-item">
+                        <span class="sig-perf-icon">🌊</span>
+                        <div>
+                            <strong>Projection</strong>
+                            <span>Very strong first 2–3 hrs · moderate 5–7 hrs</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sig-noir-cta-row">
+                    <div class="sig-noir-price">
+                        <span class="sig-price-old">₨ 4,500</span>
+                        <span class="sig-price-now">₨ 2,799</span>
+                    </div>
+                    <button class="sig-noir-cart-btn add-to-cart"
+                            data-id="sig-noir"
+                            data-name="Velirra Signature Noir"
+                            data-price="2799">
+                        ADD TO CART
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- END SIGNATURE NOIR -->
+
+    <style>
+    .sig-noir-section {
+        background: #0a0a0a;
+        padding: 80px 40px 100px;
+        overflow: hidden;
+    }
+    .sig-noir-headline { text-align: center; margin-bottom: 60px; line-height: 1; }
+    .sig-mask-text {
+        font-family: var(--font-sans, 'Montserrat', sans-serif);
+        font-size: clamp(60px, 12vw, 160px);
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        background-image: url('noir.jpeg');
+        background-size: cover;
+        background-position: center 30%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        display: inline-block;
+        filter: brightness(1.15) contrast(1.1);
+    }
+    .sig-noir-inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 70px;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .sig-noir-img-col { position: relative; }
+    .sig-noir-img-wrap { position: relative; border-radius: 4px; overflow: hidden; }
+    .sig-noir-img-wrap::before {
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(160deg, transparent 50%, rgba(0,0,0,0.6)); z-index: 1;
+    }
+    .sig-noir-img { width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block; filter: brightness(0.92) contrast(1.05); transition: transform 0.7s ease; }
+    .sig-noir-img-wrap:hover .sig-noir-img { transform: scale(1.03); }
+    .sig-noir-badge { position: absolute; bottom: 28px; left: 28px; z-index: 2; font-size: 0.65rem; letter-spacing: 0.25em; font-weight: 700; color: #000; background: linear-gradient(135deg, #c5a059, #ffd700); padding: 6px 18px; border-radius: 2px; }
+    .sig-noir-details { color: #e8e0d0; }
+    .sig-noir-overline { font-size: 0.65rem; letter-spacing: 0.25em; color: #c5a059; font-weight: 600; margin-bottom: 18px; text-transform: uppercase; }
+    .sig-noir-title { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; line-height: 1.05; color: #fff; margin-bottom: 10px; letter-spacing: 0.02em; }
+    .sig-noir-tagline { font-size: 0.9rem; letter-spacing: 0.2em; color: #c5a059; margin-bottom: 22px; text-transform: uppercase; }
+    .sig-noir-desc { font-size: 0.92rem; line-height: 1.8; color: #a09880; margin-bottom: 26px; }
+    .sig-noir-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+    .sig-noir-tags span { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #c5a059; border: 1px solid rgba(197,160,89,0.35); padding: 5px 14px; border-radius: 20px; }
+    .sig-noir-notes { border-top: 1px solid rgba(255,255,255,0.08); margin-bottom: 26px; }
+    .sig-note-row { display: flex; align-items: baseline; gap: 16px; padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .sig-note-label { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: #c5a059; font-weight: 700; min-width: 50px; }
+    .sig-note-val { font-size: 0.85rem; color: #c8bfb0; }
+    .sig-noir-perf { display: flex; flex-direction: column; gap: 12px; margin-bottom: 34px; }
+    .sig-perf-item { display: flex; align-items: flex-start; gap: 14px; }
+    .sig-perf-icon { font-size: 1.1rem; padding-top: 2px; flex-shrink: 0; }
+    .sig-perf-item strong { display: block; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; margin-bottom: 2px; }
+    .sig-perf-item span { font-size: 0.82rem; color: #7a7060; }
+    .sig-noir-cta-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .sig-noir-price { display: flex; flex-direction: column; gap: 2px; }
+    .sig-price-old { font-size: 0.8rem; color: #555; text-decoration: line-through; }
+    .sig-price-now { font-size: 1.7rem; font-weight: 800; color: #c5a059; }
+    .sig-noir-cart-btn { background: linear-gradient(135deg, #c5a059, #a07830); color: #000; border: none; padding: 14px 36px; font-size: 0.72rem; letter-spacing: 0.2em; font-weight: 800; font-family: inherit; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .sig-noir-cart-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(197,160,89,0.35); }
+    .sig-noir-cart-btn:active { transform: translateY(0); }
+    @media (max-width: 900px) { .sig-noir-inner { grid-template-columns: 1fr; gap: 48px; } .sig-noir-img { aspect-ratio: 4/3; } .sig-noir-section { padding: 60px 24px 80px; } }
+    @media (max-width: 540px) { .sig-mask-text { font-size: 18vw; letter-spacing: 0.06em; } .sig-noir-headline { margin-bottom: 36px; } }
+    </style>
 
     <!-- Footer -->
     <footer>

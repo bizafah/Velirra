@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'prime', name: 'Velirra Prime', inspiration: 'Bleu de Chanel', price: 1899, image: 'prime_new.jpeg', url: 'product-prime.html', gender: 'Men', notes: 'Citrus, Spices, Siky Notes' },
         { id: 'blue', name: 'Velirra Blue', inspiration: 'Light Blue D&G', price: 1899, image: 'Blue.jpeg', url: 'product-blue.html', gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper' },
         { id: 'homme', name: 'Velirra Homme', inspiration: 'Dior Homme Intense', price: 1899, image: 'Homme.jpeg', url: 'product-homme.html', gender: 'Men', notes: 'Lavender, Iris, Cedar' },
-        { id: 'auraoud', name: 'Velirra Aura Oud', inspiration: 'Ameer Al Oud', price: 2160, image: 'Aura_OUD.jpeg', url: 'product-auraoud.html', gender: 'Unisex', notes: 'Wood Notes, Agarwood, Vanilla, Sugar, Sandalwood, Herbal Notes' }
+        { id: 'auraoud', name: 'Velirra Aura Oud', inspiration: 'Ameer Al Oud', price: 2160, image: 'Aura_OUD.jpeg', url: 'product-auraoud.html', gender: 'Unisex', notes: 'Wood Notes, Agarwood, Vanilla, Sugar, Sandalwood, Herbal Notes' },
+        { id: 'sig-noir', name: 'Velirra Signature Noir', inspiration: 'Original Signature', price: 3780, image: 'noir.jpeg', url: 'signature.html', gender: 'Unisex', notes: 'Oud Wood, Incense, Benzoin, Raspberry, Amberwood' }
     ];
 
     /* --- HERO SLIDER --- */
@@ -474,4 +475,43 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.addEventListener('click', () => updateGallery(index));
         });
     });
+
+    /* --- ADD TO CART: Listing Pages (product-card .add-to-cart buttons) --- */
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.add-to-cart');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Get id from button data attribute OR from parent product-card data-id
+        const card = btn.closest('[data-id]');
+        const id = btn.dataset.id || (card && card.dataset.id);
+        const productObj = products.find(p => p.id === id);
+
+        if (!productObj) return;
+
+        const existingItem = cart.find(item => item.id === productObj.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ ...productObj, quantity: 1 });
+        }
+        updateCartUI();
+
+        // Open cart drawer to confirm
+        if (cartDrawer) cartDrawer.classList.add('active');
+        if (drawerOverlay) drawerOverlay.classList.add('active');
+
+        // Brief button feedback
+        const original = btn.textContent;
+        btn.textContent = '✓ Added';
+        btn.style.background = '#16a34a';
+        btn.style.color = '#fff';
+        setTimeout(() => {
+            btn.textContent = original;
+            btn.style.background = '';
+            btn.style.color = '';
+        }, 1200);
+    });
+
 });
