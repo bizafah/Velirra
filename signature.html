@@ -23,7 +23,7 @@
             background: #080808;
             padding: 80px 40px 0;
             text-align: center;
-            overflow: hidden;
+            overflow: visible;   /* never clip the heading */
         }
         .sig-hero-eyebrow {
             font-size: 0.68rem;
@@ -181,64 +181,39 @@
         .sig-cart-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(197,160,89,0.4); }
         .sig-cart-btn:active { transform: translateY(0); }
 
-        /* ── IMAGE SLIDER ── */
-        /* Col must be a positioned container with a real height */
+        /* ── IMAGE SLIDER — crossfade, stacked in CSS, no JS needed for layout ── */
         .sig-card-img-col {
             position: relative;
             min-height: 600px;
-            /* stretch to fill the grid row */
             align-self: stretch;
         }
         .sig-img-slider {
             position: absolute;
-            inset: 0;                 /* fills col exactly — no blank space */
+            inset: 0;
             overflow: hidden;
         }
         .sig-img-slider .slides {
-            display: flex;
+            position: relative;
+            width: 100%;
             height: 100%;
-            /* each slide is 100% of the slider width */
-            transition: transform 0.5s ease;
-            will-change: transform;
         }
+        /* Both slides stacked, second hidden by default */
         .sig-img-slider .slide {
-            min-width: 100%;
-            height: 100%;
-            flex-shrink: 0;
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .sig-img-slider .slide:first-child {
+            opacity: 1;
         }
         .sig-img-slider .slide img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             display: block;
             filter: brightness(0.88) contrast(1.08);
         }
-        .sig-slider-btn {
-            position: absolute; top: 50%; z-index: 3;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.55);
-            border: 1px solid rgba(197,160,89,0.4);
-            color: #c5a059;
-            width: 38px; height: 38px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 0.8rem;
-            transition: background 0.2s ease, border-color 0.2s ease;
-            padding: 0;
-        }
-        .sig-slider-btn:hover { background: rgba(197,160,89,0.25); border-color: #c5a059; }
-        .sig-slider-btn.prev { left: 14px; }
-        .sig-slider-btn.next { right: 14px; }
-        .sig-slider-dots {
-            position: absolute; bottom: 14px; left: 50%;
-            transform: translateX(-50%);
-            display: flex; gap: 7px; z-index: 3;
-        }
-        .sig-slider-dots span {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: rgba(197,160,89,0.35);
-            cursor: pointer; transition: background 0.2s;
-        }
-        .sig-slider-dots span.active { background: #c5a059; }
 
         /* responsive */
         @media (max-width: 960px) {
@@ -250,18 +225,43 @@
             .sig-card-section { padding: 0 24px 80px; }
         }
         @media (max-width: 540px) {
-            /* Fix heading drift — kill wide letter-spacing & ensure it wraps/fits */
-            .sig-hero { overflow: visible; }
-            .sig-mask-wrap { overflow: visible; }
-            .sig-mask-text {
-                font-size: clamp(48px, 18vw, 72px);
-                letter-spacing: 0.02em;
-                display: block;
-                text-align: center;
-                width: 100%;
+            /* ── HEADING FIX ──
+               "SIGNATURE" = 9 chars.
+               font-size: 8.5vw, letter-spacing: 0
+               → 9 × (8.5vw × ~0.65) ≈ 49.7vw — well within 100vw, centered.
+               No overflow, no clipping, no left-drift.
+            ── */
+            .sig-hero {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                text-align: center !important;
+                overflow: visible !important;
             }
-            .sig-mask-sub { letter-spacing: 0.3em; }
-            .sig-hero-eyebrow { letter-spacing: 0.12em; font-size: 0.6rem; }
+            .sig-mask-wrap {
+                display: block;
+                width: 100%;
+                text-align: center;
+                overflow: visible;
+            }
+            .sig-mask-text {
+                font-size: 8.5vw !important;
+                letter-spacing: 0 !important;
+                display: block !important;
+                width: 100% !important;
+                text-align: center !important;
+            }
+            .sig-mask-sub {
+                font-size: 4vw !important;
+                letter-spacing: 0.35em !important;
+                text-align: center !important;
+                display: block !important;
+            }
+            .sig-hero-eyebrow {
+                font-size: 0.55rem !important;
+                letter-spacing: 0.1em !important;
+                text-align: center !important;
+                padding: 0 12px;
+            }
             .sig-card-details { padding: 32px 24px; }
         }
     </style>
@@ -361,7 +361,7 @@
         <section class="sig-card-section">
             <div class="sig-card">
 
-                <!-- LEFT: Image Slider -->
+                <!-- LEFT: Image (auto-crossfade, no arrows) -->
                 <div class="sig-card-img-col">
                     <span class="sig-card-img-badge">✦ Signature</span>
                     <div class="sig-img-slider" id="sigSlider">
@@ -372,16 +372,6 @@
                             <div class="slide">
                                 <img src="box.jpeg" alt="Velirra Signature Noir — Box">
                             </div>
-                        </div>
-                        <button class="sig-slider-btn prev" id="sigPrev" aria-label="Previous image">
-                            <i class="fa-solid fa-chevron-left"></i>
-                        </button>
-                        <button class="sig-slider-btn next" id="sigNext" aria-label="Next image">
-                            <i class="fa-solid fa-chevron-right"></i>
-                        </button>
-                        <div class="sig-slider-dots" id="sigDots">
-                            <span class="active" data-index="0"></span>
-                            <span data-index="1"></span>
                         </div>
                     </div>
                 </div>
@@ -494,35 +484,17 @@
     <script src="script.js"></script>
     <script src="chatbot.js"></script>
     <script>
-        /* ── Image Slider ── */
+        /* ── Auto-crossfade (CSS does the stacking, JS just toggles opacity) ── */
         (function () {
-            var slides   = document.getElementById('sigSlides');
-            var dots     = document.querySelectorAll('#sigDots span');
-            var total    = dots.length;
-            var current  = 0;
+            var slides  = document.querySelectorAll('#sigSlides .slide');
+            var current = 0;
+            if (slides.length < 2) return;
 
-            function goTo(index) {
-                current = (index + total) % total;
-                slides.style.transform = 'translateX(-' + (current * 100) + '%)';
-                dots.forEach(function (d, i) {
-                    d.classList.toggle('active', i === current);
-                });
-            }
-
-            document.getElementById('sigPrev').addEventListener('click', function () { goTo(current - 1); });
-            document.getElementById('sigNext').addEventListener('click', function () { goTo(current + 1); });
-            dots.forEach(function (d) {
-                d.addEventListener('click', function () { goTo(parseInt(d.dataset.index)); });
-            });
-
-            /* swipe support */
-            var startX = 0;
-            var slider  = document.getElementById('sigSlider');
-            slider.addEventListener('touchstart', function (e) { startX = e.touches[0].clientX; }, { passive: true });
-            slider.addEventListener('touchend',   function (e) {
-                var diff = startX - e.changedTouches[0].clientX;
-                if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
-            });
+            setInterval(function () {
+                slides[current].style.opacity = '0';
+                current = (current + 1) % slides.length;
+                slides[current].style.opacity = '1';
+            }, 3500);
         })();
     </script>
 </body>

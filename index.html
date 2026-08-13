@@ -569,6 +569,26 @@
             .sig-home-img { min-height: 380px !important; }
         }
         .sig-home-card:hover .sig-home-img-el { transform: scale(1.03); }
+        @media (max-width: 540px) {
+            /* Fix SIGNATURE heading cut-off on mobile */
+            #signature > div:first-child {
+                padding: 0 16px !important;
+                text-align: left !important;
+            }
+            #signature > div:first-child span:first-of-type {
+                font-size: clamp(42px, 13vw, 68px) !important;
+                letter-spacing: 0 !important;
+                display: block !important;
+            }
+            #signature > div:first-child span:last-of-type {
+                text-align: left !important;
+                letter-spacing: 0.2em !important;
+            }
+            #signature > div:first-child p {
+                text-align: left !important;
+                letter-spacing: 0.08em !important;
+            }
+        }
         </style>
         <!-- END SIGNATURE SECTION -->
 
