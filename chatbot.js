@@ -116,10 +116,10 @@
                 return "All our perfumes are EDP concentration. For extreme longevity (+8 hours), I highly recommend **HOMME**, **AURA OUD**, and **INTENSE**.";
 
             case 'return':
-                return "We have a 7-day hassle-free return policy if the product is unused. We want you to be 100% happy with your scent!";
+                return "We accept returns only for defective pieces or problematic perfume boxes upon delivery. Clear evidence must be provided the same day. We do not offer exchanges. Please view our Return Policy page for more details.";
 
             case 'contact':
-                return "You can chat with our team on WhatsApp at **03710738971** or email us at sales@velirra.store.";
+                return "You can chat with our team on WhatsApp at **03710738971** or email us at velirrastore@gmail.com.";
 
             case 'order':
                 return "Ordering is easy! Just follow these steps:\n\n1️⃣ **Select your category** (Male, Female, or Unisex).\n2️⃣ **Choose your perfume** and click on it.\n3️⃣ Click **Add to Cart**.\n4️⃣ Press **Checkout**.\n5️⃣ Fill in your **delivery details** and you've ordered successfully!\n\nNeed help? Just ask!";

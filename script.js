@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'blue', name: 'Velirra Blue', inspiration: 'Light Blue D&G', price: 1899, image: 'Blue.jpeg', url: 'product-blue.html', gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper' },
         { id: 'homme', name: 'Velirra Homme', inspiration: 'Dior Homme Intense', price: 1899, image: 'Homme.jpeg', url: 'product-homme.html', gender: 'Men', notes: 'Lavender, Iris, Cedar' },
         { id: 'auraoud', name: 'Velirra Aura Oud', inspiration: 'Ameer Al Oud', price: 2160, image: 'Aura_OUD.jpeg', url: 'product-auraoud.html', gender: 'Unisex', notes: 'Wood Notes, Agarwood, Vanilla, Sugar, Sandalwood, Herbal Notes' },
-        { id: 'sig-noir', name: 'Velirra Signature Noir', inspiration: 'Original Signature', price: 3780, image: 'noir.jpeg', url: 'signature.html', gender: 'Unisex', notes: 'Oud Wood, Incense, Benzoin, Raspberry, Amberwood' }
+        { id: 'sig-noir', name: 'Velirra Signature Noir', inspiration: 'Original Signature', price: 3780, image: 'noir.jpeg', url: 'signature.html', gender: 'Unisex', notes: 'Oud Wood, Incense, Benzoin, Raspberry, Amberwood' },
+        { id: 'nightfall', name: 'Velirra Nightfall', inspiration: '9PM Rebel', price: 2970, image: 'nightfall.jpeg', url: 'product-nightfall.html', gender: 'Men', notes: 'Mandarin, Lemon, Green Apple, Black Currant, Lavender, Vanilla, Amber' }
     ];
 
     /* --- HERO SLIDER --- */
@@ -74,6 +75,26 @@ document.addEventListener('DOMContentLoaded', () => {
     /* --- CART SYSTEM --- */
     let cart = JSON.parse(localStorage.getItem('velirra_cart')) || [];
     let isDiscountApplied = localStorage.getItem('velirra_discount') === 'true';
+    let appliedDiscountCode = localStorage.getItem('velirra_discount_code') || (isDiscountApplied ? 'velirra12345' : '');
+
+    function getDiscountInfo(total, code) {
+        if (!code || total <= 0) return { discount: 0, label: 'Discount:' };
+        const cleanCode = code.trim().toLowerCase();
+        if (cleanCode === 'velirra3000') {
+            const discount = total > 3000 ? total - 3000 : 0;
+            return { discount, label: 'Discount (Fixed ₨ 3,000):' };
+        } else if (cleanCode === 'velirra300') {
+            const discount = Math.min(total, 300);
+            return { discount, label: 'Discount (₨ 300 OFF):' };
+        } else if (cleanCode === 'velirra500') {
+            const discount = Math.min(total, 500);
+            return { discount, label: 'Discount (₨ 500 OFF):' };
+        } else if (cleanCode === 'velirra12345') {
+            const discount = total * 0.20;
+            return { discount, label: 'Discount (20% OFF):' };
+        }
+        return { discount: 0, label: 'Discount:' };
+    }
 
     const cartTrigger = document.querySelector('.cart-trigger');
     const cartDrawer = document.querySelector('.cart-drawer');
@@ -100,7 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (discountRow) discountRow.style.display = 'none';
             if (deliveryRow) deliveryRow.style.display = 'none';
             isDiscountApplied = false;
+            appliedDiscountCode = '';
             localStorage.removeItem('velirra_discount');
+            localStorage.removeItem('velirra_discount_code');
         } else {
             let total = 0;
             let count = 0;
@@ -126,12 +149,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (deliveryRow) deliveryRow.style.display = 'flex';
 
-            if (isDiscountApplied) {
-                const discount = total * 0.20;
-                const grandTotal = total - discount + 200;
+            const discountInfo = getDiscountInfo(total, appliedDiscountCode);
+            if (discountInfo.discount > 0 || (appliedDiscountCode === 'velirra3000' && total > 3000)) {
+                const discount = discountInfo.discount;
+                const grandTotal = Math.max(200, total - discount + 200);
                 if (discountRow) {
                     discountRow.style.display = 'flex';
-                    discountAmountDisplay.textContent = `-₨ ${discount.toLocaleString()}`;
+                    const labelSpan = discountRow.querySelector('span:first-child');
+                    if (labelSpan) labelSpan.textContent = discountInfo.label;
+                    if (discountAmountDisplay) discountAmountDisplay.textContent = `-₨ ${discount.toLocaleString()}`;
                 }
                 cartSubtotal.textContent = `₨ ${grandTotal.toLocaleString()}`;
             } else {
@@ -147,9 +173,32 @@ document.addEventListener('DOMContentLoaded', () => {
     if (applyPromoBtn) {
         applyPromoBtn.addEventListener('click', () => {
             const code = promoInput.value.trim().toLowerCase();
-            if (code === 'velirra12345') {
+            if (code === 'velirra3000') {
                 isDiscountApplied = true;
+                appliedDiscountCode = 'velirra3000';
                 localStorage.setItem('velirra_discount', 'true');
+                localStorage.setItem('velirra_discount_code', 'velirra3000');
+                alert('Success! Promo code velirra3000 applied (Product Price set to 3000 RS).');
+                updateCartUI();
+            } else if (code === 'velirra300') {
+                isDiscountApplied = true;
+                appliedDiscountCode = 'velirra300';
+                localStorage.setItem('velirra_discount', 'true');
+                localStorage.setItem('velirra_discount_code', 'velirra300');
+                alert('Success! 300 RS Discount Applied.');
+                updateCartUI();
+            } else if (code === 'velirra500') {
+                isDiscountApplied = true;
+                appliedDiscountCode = 'velirra500';
+                localStorage.setItem('velirra_discount', 'true');
+                localStorage.setItem('velirra_discount_code', 'velirra500');
+                alert('Success! 500 RS Discount Applied.');
+                updateCartUI();
+            } else if (code === 'velirra12345') {
+                isDiscountApplied = true;
+                appliedDiscountCode = 'velirra12345';
+                localStorage.setItem('velirra_discount', 'true');
+                localStorage.setItem('velirra_discount_code', 'velirra12345');
                 alert('Success! 20% Discount Applied.');
                 updateCartUI();
             } else {
@@ -286,10 +335,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Calculate Totals
             let total = 0;
             cart.forEach(item => total += item.price * item.quantity);
-            let finalPrice = total + 200;
-            if (isDiscountApplied) {
-                finalPrice = (total * 0.80) + 200;
-            }
+            const discountInfo = getDiscountInfo(total, appliedDiscountCode);
+            let finalPrice = Math.max(200, total - discountInfo.discount + 200);
 
             // --- SAVE TO GOOGLE SHEETS ---
             const scriptURL = "https://script.google.com/macros/s/AKfycbx6FBP0IFCbq-TzPNUEvhCuROsDtqYokBYYPfJCzWTORYGyx8VAvaFCftsfmF5esiipJw/exec";
@@ -329,8 +376,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Clear cart after order
                 cart = [];
                 isDiscountApplied = false;
+                appliedDiscountCode = '';
                 localStorage.removeItem('velirra_cart');
                 localStorage.removeItem('velirra_discount');
+                localStorage.removeItem('velirra_discount_code');
                 updateCartUI();
             }
         });
@@ -477,7 +526,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* --- ADD TO CART: Listing Pages (product-card .add-to-cart buttons) --- */
-    document.addEventListener('click', function(e) {
+    document.addEventListener('click', function (e) {
         const btn = e.target.closest('.add-to-cart');
         if (!btn) return;
         e.preventDefault();
