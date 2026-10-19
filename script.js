@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'legacy', name: 'Velirra Legacy', inspiration: 'Azzaro The Most Wanted', price: 2399, image: 'legacy_new.jpeg', url: 'product-legacy.html', gender: 'Men', notes: 'Cardamom, Ginger, Lemon' },
         { id: 'classic', name: 'Velirra Classic', inspiration: 'Dolce & Gabbana Pour Homme', price: 1699, image: 'classic_new.jpeg', url: 'product-classic.html', gender: 'Men', notes: 'Citrus, Herbs, Tobacco' },
         { id: '7one', name: 'Velirra 7ONE', inspiration: 'Invictus Legend', price: 1699, image: '7one_new.jpeg', url: 'product-7one.html', gender: 'Unisex', notes: 'Sea Salt, Grapefruit, Amber Wood' },
-        { id: 'bloom', name: 'Velirra Bloom', inspiration: 'VS Bombshell', price: 1499, image: 'bloom_new.jpeg', url: 'product-bloom.html', gender: 'Women', notes: 'Passionfruit, Peony, Musk' },
+        { id: 'bloom', name: 'Velirra Bloom', inspiration: 'VS Bombshell', price: 2100, image: 'bloom_new.jpeg', url: 'product-bloom.html', gender: 'Women', notes: 'Passionfruit, Peony, Musk' },
         { id: 'legendary', name: 'Velirra Legendary', inspiration: '1 Million Lucky', price: 1999, image: 'legendary_new.jpeg', url: 'product-legendary.html', gender: 'Unisex', notes: 'Plum, Hazelnut, Amber' },
-        { id: 'intense', name: 'Velirra Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2099, image: 'intense_new.jpeg', url: 'product-intense.html', gender: 'Unisex', notes: 'Raspberry, Leather, Amber' },
+        { id: 'intense', name: 'Velirra Intense', inspiration: 'Tom Ford Tuscan Leather', price: 2550, image: 'intense_new.jpeg', url: 'product-intense.html', gender: 'Unisex', notes: 'Raspberry, Leather, Amber' },
         { id: 'ocean', name: 'Velirra Ocean', inspiration: 'Davidoff Cool Water', price: 1699, image: 'ocean_new.jpeg', url: 'product-ocean.html', gender: 'Women', notes: 'Mint, Sea Water, Lavender' },
         { id: 'prime', name: 'Velirra Prime', inspiration: 'Bleu de Chanel', price: 1899, image: 'prime_new.jpeg', url: 'product-prime.html', gender: 'Men', notes: 'Citrus, Spices, Siky Notes' },
         { id: 'blue', name: 'Velirra Blue', inspiration: 'Light Blue D&G', price: 1899, image: 'Blue.jpeg', url: 'product-blue.html', gender: 'Women', notes: 'Mandarin, Grapefruit, Juniper' },
@@ -74,6 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* --- CART SYSTEM --- */
     let cart = JSON.parse(localStorage.getItem('velirra_cart')) || [];
+    // Sync cart prices against current product data to fix stale cached prices
+    cart = cart.map(item => {
+        const master = products.find(p => p.id === item.id);
+        return master ? { ...item, price: master.price, name: master.name, image: master.image } : item;
+    });
+    localStorage.setItem('velirra_cart', JSON.stringify(cart));
     let isDiscountApplied = localStorage.getItem('velirra_discount') === 'true';
     let appliedDiscountCode = localStorage.getItem('velirra_discount_code') || (isDiscountApplied ? 'velirra12345' : '');
 
