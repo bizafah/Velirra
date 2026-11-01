@@ -529,6 +529,37 @@ document.addEventListener('DOMContentLoaded', () => {
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => updateGallery(index));
         });
+
+        // Touch / swipe support
+        const container = gallery.querySelector('.main-image-container');
+        if (container) {
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            container.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            container.addEventListener('touchend', (e) => {
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dy = e.changedTouches[0].clientY - touchStartY;
+                // Only treat as horizontal swipe if horizontal movement dominates
+                if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+                    if (dx < 0) {
+                        // swipe left → next
+                        let index = currentIndex + 1;
+                        if (index >= images.length) index = 0;
+                        updateGallery(index);
+                    } else {
+                        // swipe right → prev
+                        let index = currentIndex - 1;
+                        if (index < 0) index = images.length - 1;
+                        updateGallery(index);
+                    }
+                }
+            }, { passive: true });
+        }
     });
 
     /* --- ADD TO CART: Listing Pages (product-card .add-to-cart buttons) --- */
