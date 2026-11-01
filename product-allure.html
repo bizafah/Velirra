@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VELIRRA ALLURE | Premium Fragrance</title>
+    <meta name="description" content="Velirra Allure – Inspired by Versace Crystal Bright. A fresh, floral, feminine EDP with 8+ hours longevity.">
+    <meta name="facebook-domain-verification" content="di5mrlw0qw9v99vs75t76t54x1u62v" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Meta Pixel Code -->
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1457179279266064');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+            src="https://www.facebook.com/tr?id=1457179279266064&ev=PageView&noscript=1" /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+
+<body class="product-page">
+    <div class="top-bar">
+        <p>🌙 SEASONAL SALE</p>
+    </div>
+
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="VELIRRA" id="main-logo">
+                </a>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="index.html#about">ABOUT</a></li>
+                    <li><a href="index.html#perfumes">PERFUMES</a></li>
+                    <li><a href="premium.html" class="active">PREMIUM</a></li>
+                    <li><a href="index.html#contact">CONTACT</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="#" aria-label="Account"><i class="fa-regular fa-user"></i></a>
+                <a href="#" aria-label="Search" class="search-trigger"><i class="fa-solid fa-magnifying-glass"></i></a>
+                <a href="#" aria-label="Cart" class="cart-trigger">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="cart-count">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay">
+        <div class="search-container">
+            <div class="search-header">
+                <input type="text" id="search-input" placeholder="Search for perfumes, notes, inspirations...">
+                <button class="close-search"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div class="cart-drawer">
+        <div class="cart-drawer-header">
+            <h3>YOUR CART</h3>
+            <button class="close-cart"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <div class="empty-cart-msg">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="promo-section">
+                <input type="text" id="promo-input" placeholder="Promo Code">
+                <button id="apply-promo">APPLY</button>
+            </div>
+            <div id="discount-row"
+                style="display: none; justify-content: space-between; margin-bottom: 10px; color: #e74c3c; font-weight: 600;">
+                <span>Discount (20%):</span>
+                <span id="discount-amount">-₨ 0</span>
+            </div>
+            <div id="delivery-row"
+                style="display: none; justify-content: space-between; margin-bottom: 10px; font-weight: 600;">
+                <span>Delivery Charges:</span>
+                <span>₨ 200</span>
+            </div>
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-subtotal">₨ 0</span>
+            </div>
+            <button class="checkout-btn">CHECKOUT</button>
+        </div>
+    </div>
+    <!-- Checkout Details Modal -->
+    <div class="checkout-modal" id="checkout-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>DELIVERY DETAILS</h3>
+                <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="checkout-form">
+                <div class="form-group">
+                    <label>Phone Number *</label>
+                    <input type="tel" id="checkout-phone" placeholder="e.g. 03001234567" required>
+                </div>
+                <div class="form-group">
+                    <label>Full Delivery Address *</label>
+                    <textarea id="checkout-address" placeholder="House #, Street, Area, City" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Postal Code (Optional)</label>
+                    <input type="text" id="checkout-postal" placeholder="e.g. 46000">
+                </div>
+                <div class="form-group">
+                    <label>Google Map Link (Optional)</label>
+                    <input type="url" id="checkout-location" placeholder="Paste link here">
+                </div>
+                <button type="submit" class="confirm-order-btn">CONFIRM & SEND ON WHATSAPP</button>
+            </form>
+        </div>
+    </div>
+    <div class="drawer-overlay"></div>
+
+    <main class="product-detail-main">
+        <div class="container">
+            <div class="product-detail-grid">
+
+                <!-- Gallery -->
+                <div class="product-gallery">
+                    <div class="main-image-container">
+                        <div class="main-image active">
+                            <img src="allure_new.jpeg" alt="VELIRRA Allure">
+                        </div>
+                        <div class="main-image">
+                            <img src="newbox1.jpeg" alt="Box View 1">
+                        </div>
+                        <div class="main-image">
+                            <img src="newbox2.jpeg" alt="Box View 2">
+                        </div>
+                        <div class="main-image">
+                            <img src="newbox3.jpeg" alt="Box View 3">
+                        </div>
+                        <button class="gallery-nav prev"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="gallery-nav next"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                    <div class="image-dots">
+                        <span class="image-dot active"></span>
+                        <span class="image-dot"></span>
+                        <span class="image-dot"></span>
+                        <span class="image-dot"></span>
+                    </div>
+                </div>
+
+                <!-- Details -->
+                <div class="product-details">
+                    <nav class="breadcrumb">
+                        <a href="index.html">Home</a> / <a href="premium.html">Premium</a> / Allure
+                    </nav>
+
+                    <span
+                        style="display:inline-block; background:linear-gradient(135deg,#b8860b,#ffd700); color:#000; font-size:0.6rem; font-weight:800; letter-spacing:0.2em; padding:4px 12px; border-radius:2px; text-transform:uppercase; margin-bottom:12px;">✦
+                        PREMIUM</span>
+
+                    <h1 class="product-title">VELIRRA ALLURE</h1>
+                    <p class="product-subtitle">Inspired by Versace Crystal Bright</p>
+
+                    <div class="product-pricing">
+                        <span class="price-current">₨ 2,350</span>
+                    </div>
+
+                    <p class="product-description">
+                        Velirra Allure is a fresh, feminine fragrance inspired by Versace Crystal Bright. Crisp citrus
+                        and sparkling fruit open into a delicate floral heart of peony, magnolia and lotus flower,
+                        before settling into a soft, musky woody base — clean, elegant and made to last.
+                    </p>
+
+                    <!-- Performance pills -->
+                    <div style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px;">
+                        <div style="background:rgba(201,169,98,0.08); border:1px solid rgba(201,169,98,0.25); border-radius:4px; padding:10px 14px;">
+                            <strong style="display:block; font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; color:#c5a059;">Longevity</strong>
+                            <span style="font-size:0.76rem; color:#8a8a8a;">8+ hrs on skin</span>
+                        </div>
+                        <div style="background:rgba(201,169,98,0.08); border:1px solid rgba(201,169,98,0.25); border-radius:4px; padding:10px 14px;">
+                            <strong style="display:block; font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; color:#c5a059;">Concentration</strong>
+                            <span style="font-size:0.76rem; color:#8a8a8a;">Eau de Parfum 50ML</span>
+                        </div>
+                        <div style="background:rgba(201,169,98,0.08); border:1px solid rgba(201,169,98,0.25); border-radius:4px; padding:10px 14px;">
+                            <strong style="display:block; font-size:0.58rem; letter-spacing:0.15em; text-transform:uppercase; color:#c5a059;">Best Season</strong>
+                            <span style="font-size:0.76rem; color:#8a8a8a;">Spring &amp; Summer</span>
+                        </div>
+                    </div>
+
+                    <div class="purchase-actions">
+                        <div class="quantity-selector">
+                            <button class="qty-btn minus">-</button>
+                            <input type="number" value="1" min="1" class="qty-input">
+                            <button class="qty-btn plus">+</button>
+                        </div>
+                        <button class="add-to-cart-btn add-to-cart" data-id="allure" data-name="Velirra Allure" data-price="2350">ADD TO CART</button>
+                    </div>
+
+                    <div class="product-tabs">
+                        <div class="tab-item active">
+                            <h3>FRAGRANCE NOTES</h3>
+                            <div class="notes-grid">
+                                <div class="note-box">
+                                    <span class="note-label">Top Notes – Opening</span>
+                                    <p>Yuzu · Iced Accord · Pomegranate</p>
+                                    <p style="font-size:0.8rem; color:#8a8a8a; margin-top:4px;">Fresh, juicy, citrusy, fruity and slightly sparkling.</p>
+                                </div>
+                                <div class="note-box">
+                                    <span class="note-label">Heart Notes – Middle</span>
+                                    <p>Peony · Magnolia · Lotus Flower</p>
+                                    <p style="font-size:0.8rem; color:#8a8a8a; margin-top:4px;">Soft, feminine, airy, elegant and beautifully floral.</p>
+                                </div>
+                                <div class="note-box">
+                                    <span class="note-label">Base Notes – Dry Down</span>
+                                    <p>Acajou (Mahogany) · Vegetal Amber · Musk</p>
+                                    <p style="font-size:0.8rem; color:#8a8a8a; margin-top:4px;">Soft woody warmth, gentle amber and clean musky sweetness.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-item">
+                            <h3>FRAGRANCE PROFILE</h3>
+                            <ul class="profile-list">
+                                <li><strong>Family:</strong> Floral Fruity Musky</li>
+                                <li><strong>Gender:</strong> Feminine</li>
+                                <li><strong>Opening:</strong> Fresh, juicy and citrusy</li>
+                                <li><strong>Heart:</strong> Delicate floral bouquet</li>
+                                <li><strong>Dry Down:</strong> Musky, woody and slightly warm</li>
+                                <li><strong>Sweetness:</strong> Light to moderate</li>
+                                <li><strong>Freshness:</strong> High</li>
+                                <li><strong>Floral Character:</strong> High</li>
+                                <li><strong>Overall Feel:</strong> Feminine, clean and elegant</li>
+                                <li><strong>Longevity:</strong> More than 8 hrs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <div class="logo"><span class="logo-text">VELIRRA</span></div>
+                <p>Velirra has been crafting exceptional fragrances with a simple principle: excellence in every drop.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Collections</h4>
+                <ul>
+                    <li><a href="gents.html">Gents Line</a></li>
+                    <li><a href="ladies.html">Ladies Line</a></li>
+                    <li><a href="unisex.html">Unisex Line</a></li>
+                    <li><a href="premium.html">Premium Line</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="mailto:velirrastore@gmail.com">velirrastore@gmail.com</a></li>
+                    <li><a href="https://wa.me/923710738971">WhatsApp: 03710738971</a></li>
+                    <li><a href="policy.html">Return Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 Velirra. All rights reserved to Bizafah and Bunyad Labs.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+</body>
+
+</html>
